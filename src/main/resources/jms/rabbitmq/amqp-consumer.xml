@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/rabbit 
+	http://www.springframework.org/schema/rabbit/spring-rabbit.xsd
+    http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<!--组件扫描，需要添加pom依赖 spring-context -->
+	<context:component-scan base-package="jms.rabbitmq"></context:component-scan>
+
+
+
+	<import resource="amqp-share.xml" />
+	<rabbit:listener-container
+		connection-factory="connectionFactory">
+		<rabbit:listener ref="spittleListener" method="onMessage"
+			queues="spittle.alert.queue.1,spittle.alert.queue.3,spittle.alert.queue.2" />
+	</rabbit:listener-container>
+	<bean id="spittleListener" class="com.lp.summary.rabbitmq.impl.SpittleAlertHandler" />
+
+	<rabbit:listener-container
+		connection-factory="connectionFactory" acknowledge="auto">
+		<rabbit:listener queues="spring-test-queue1" method="onMessage"
+			ref="queueListenter"></rabbit:listener>
+	</rabbit:listener-container>
+	
+	<rabbit:listener-container
+		connection-factory="connectionFactory" acknowledge="auto">
+		<rabbit:listener queues="spring-test-queue2" method="onMessage"
+			ref="queueListenter"></rabbit:listener>
+	</rabbit:listener-container>
+</beans>

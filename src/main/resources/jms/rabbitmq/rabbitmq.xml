@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/rabbit 
+	http://www.springframework.org/schema/rabbit/spring-rabbit.xsd
+    http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<!--组件扫描，需要添加pom依赖 spring-context -->
+	<context:component-scan base-package="jms.rabbitmq"></context:component-scan>
+
+	<!--配置连接 -->
+	<rabbit:connection-factory id="connectionFactory"
+		host="127.0.0.1" port="5672" username="admin" password="admin"
+		virtual-host="/" requested-heartbeat="60" />
+
+	<!--配置RabbitTemplate -->
+	<rabbit:template id="amqpTemplate" connection-factory="connectionFactory"
+		exchange="myExchange" routing-key="foo.bar" />
+
+	<!--配置RabbitAdmin -->
+	<rabbit:admin connection-factory="connectionFactory" />
+
+	<!--配置队列名 -->
+	<rabbit:queue name="myQueue" />
+
+	<!--配置topic类型exchange -->
+	<rabbit:topic-exchange name="myExchange">
+		<rabbit:bindings>
+			<rabbit:binding queue="myQueue" pattern="foo.*" />
+		</rabbit:bindings>
+	</rabbit:topic-exchange>
+
+	<!--配置监听 -->
+<!-- 	<rabbit:listener-container connection-factory="connectionFactory"> -->
+<!-- 		<rabbit:listener ref="foo" method="listen" queue-names="myQueue" /> -->
+<!-- 	</rabbit:listener-container> -->
+
+	<!--配置监听 -->
+	<rabbit:listener-container connection-factory="connectionFactory">
+		<rabbit:listener ref="fooMessageListener" queue-names="myQueue" />
+	</rabbit:listener-container>
+</beans>

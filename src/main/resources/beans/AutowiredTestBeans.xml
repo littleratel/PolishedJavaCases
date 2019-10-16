@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+    	http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+    	http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:component-scan base-package="spring.bean.autowirednjectionmodel.*">
+	</context:component-scan>
+
+	<!-- 注册dao接口的mybatis实现类 -->
+	<bean id="userDaoMyBatis" class="spring.bean.autowirednjectionmodel.UserDaoMyBatisImpl">
+	</bean>
+
+	<!-- 注册dao接口的hibernate实现类 -->
+	<bean id="userDaoHibernate" class="spring.bean.autowirednjectionmodel.UserDaoHibernateImpl">
+	</bean>
+
+	<!-- 注册IUserService唯一的实现类 -->
+	<bean id="userService" class="spring.bean.autowirednjectionmodel.UserServiceImpl">
+	</bean>
+
+</beans>
