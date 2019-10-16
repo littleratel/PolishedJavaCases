@@ -18,9 +18,7 @@ public class StringReverse {
 		int len = str.length();
 		StringBuilder sb = new StringBuilder(len);
 
-		int begin;
-		for (int i = len - 1; i >= 0; i--) {
-			begin = i;
+		for (int i = len - 1, begin = i; i >= 0; i--, begin = i) {
 			if (str.charAt(i) == '-') {
 				do {
 					i--;

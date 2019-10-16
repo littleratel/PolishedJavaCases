@@ -14,7 +14,7 @@ public class MyConfirmListener implements ConfirmListener {
 	@Override
 	public void handleAck(long deliveryTag, boolean multiple) throws IOException {
 		// deliveryTag是broker给消息指定的唯一id（从1开始）
-		System.out.println("Exchange接收消息, deliveryTag=" + deliveryTag + ",multiple=" + multiple);
+		System.out.println("Exchange接收Ack, deliveryTag=" + deliveryTag + ",multiple=" + multiple);
 	}
 
 	/**
@@ -23,7 +23,7 @@ public class MyConfirmListener implements ConfirmListener {
 	 */
 	@Override
 	public void handleNack(long deliveryTag, boolean multiple) throws IOException {
-		System.out.println("Exchange接收消息失败：deliveryTag=" + deliveryTag + ",服务器broker丢失了消息!");
+		System.out.println("Exchange接收Nack：deliveryTag=" + deliveryTag + ",服务器broker丢失了消息!");
 	}
 
 }

@@ -8,16 +8,16 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
- * 搭建服务器端: 
- * a) new ServerSocket对象->绑定->监听端口。
- * b) accept() 接收客户端请求。
- * c) 通过输入输出流读取客户端发送的请求信息。 
- * d) 通过输出流向客户端发送请求信息。 
- * e) 关闭相关资源。
+ * 搭建服务器端: <br>
+ * a) new ServerSocket对象->绑定->监听端口<br>
+ * b) accept() 等待客户端连接，获取连接的socket<br>
+ * c) 获取IO流, socket.getInputStream, socket.getOutputStream<br>
+ * d) 通过IO流与client交互<br>
+ * e) 关闭相关资源<br>
  */
 public class SocketServer {
 	private final static int DEFAULT_PORT = 5209;
-	
+
 	public static void main(String[] args) throws IOException {
 		SocketServer service = new SocketServer();
 		service.ServerBaseIO();
@@ -54,7 +54,7 @@ public class SocketServer {
 
 			//
 			PrintWriter writer = new PrintWriter(socket.getOutputStream());
-			while (!readline.equals("end")) {
+			while (!readline.equals("\r\n")) {
 				writer.println(readline);
 				writer.flush();
 				System.out.println("Client:" + read.readLine());

@@ -17,6 +17,10 @@ public class Server {
 		new Thread(serverHandle, "Thread-Server").start();
 	}
 
+	public static void stop() {
+		serverHandle.stop();
+	}
+
 	public static void main(String[] args) {
 		start();
 	}

@@ -1,14 +1,16 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>cn.bin</groupId>
-	<artifactId>ErrorSet</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>JavaErrorSet</artifactId>
+	<version>1.8.01-SNAPSHOT</version>
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.6.1</version>
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
@@ -70,11 +72,11 @@
 			<version>26.0-jre</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.ericsson.commonlibrary</groupId>
-			<artifactId>proxy</artifactId>
-			<version>1.2.0</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.ericsson.commonlibrary</groupId> -->
+<!-- 			<artifactId>proxy</artifactId> -->
+<!-- 			<version>1.2.0</version> -->
+<!-- 		</dependency> -->
 		<dependency>
 			<groupId>cglib</groupId>
 			<artifactId>cglib</artifactId>
@@ -180,8 +182,43 @@
 			<artifactId>commons-beanutils</artifactId>
 			<version>1.9.3</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.1.25</version>
+		</dependency>
+
+		<!-- kubectl and helm -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.ericsson.commonlibrary</groupId> -->
+<!-- 			<artifactId>kubectl-api</artifactId> -->
+<!-- 			<version>0.0.103</version> -->
+<!-- 		</dependency> -->
+
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.ericsson.commonlibrary</groupId> -->
+<!-- 			<artifactId>helm-api</artifactId> -->
+<!-- 			<version>0.0.43</version> -->
+<!-- 		</dependency> -->
+
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20180813</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.8</version>
+		</dependency>
+
+		<!-- Netty -->
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-all</artifactId>
+			<version>4.1.38.Final</version>
+		</dependency>
 	</dependencies>
-	<modules>
-		<module>?</module>
-	</modules>
 </project>

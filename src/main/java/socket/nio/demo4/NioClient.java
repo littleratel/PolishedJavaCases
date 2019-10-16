@@ -34,9 +34,11 @@ public class NioClient {
 			// 选择注册过的io操作的事件(第一次为SelectionKey.OP_CONNECT)
 			selector.select();
 			Iterator<SelectionKey> ite = selector.selectedKeys().iterator();
+
 			while (ite.hasNext()) {
 				SelectionKey selectionKey = ite.next();
 				ite.remove();// 删除已选的key，防止重复处理
+
 				if (selectionKey.isConnectable()) {
 					SocketChannel channel = (SocketChannel) selectionKey.channel();
 
@@ -53,19 +55,31 @@ public class NioClient {
 					channel.register(selector, SelectionKey.OP_READ);
 					System.out.println("客户端连接成功");
 				} else if (selectionKey.isReadable()) { // 有可读数据事件。
+					
 					SocketChannel channel = (SocketChannel) selectionKey.channel();
+					// 创建读取数据缓冲器
+					ByteBuffer buffer = ByteBuffer.allocate(1024);
+					ByteBuffer responseBuffer = ByteBuffer.allocate(1024);
 
-					ByteBuffer buffer = ByteBuffer.allocate(10);
-					channel.read(buffer);
-					byte[] data = buffer.array();
-					String message = new String(data);
+					int read = channel.read(buffer);
+					if (read > 0) {
+						byte[] data = buffer.array();
+						String message = new String(data);
+						System.out.println("receive msg from client, size:" + buffer.position() + " msg: " + message);
 
-					System.out.println("recevie message from server:, size:" + buffer.position() + " msg: " + message);
-					// ByteBuffer outbuffer = ByteBuffer.wrap(("client.".concat(msg)).getBytes());
-					// channel.write(outbuffer);
-				}
-			}//end while
-		}
+						buffer.flip();
+						responseBuffer.put(buffer);
+					}
+					if (read == -1) {
+						System.out.println("Server socket closed!");
+						channel.close();
+						return;
+					}
+
+					selectionKey.interestOps(SelectionKey.OP_READ | SelectionKey.OP_WRITE);
+				}//end if
+			} // end while
+		}//while (true) 
 	}
 
 	public static void main(String[] args) throws IOException {

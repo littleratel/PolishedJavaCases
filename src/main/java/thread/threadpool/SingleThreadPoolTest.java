@@ -5,7 +5,7 @@ import java.util.concurrent.Executors;
 
 public class SingleThreadPoolTest {
 
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) {
 		ExecutorService singleThreadPool = Executors.newSingleThreadExecutor();
 		for (int i = 0; i < 10; i++) {
 			final int index = i;

@@ -30,7 +30,7 @@ public class SocketClient {
 			BufferedReader read = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			PrintWriter write = new PrintWriter(socket.getOutputStream());
 
-			while (!readline.equals("end")) {
+			while (!readline.equals("\r\n")) {
 				// socket write
 				write.println(readline);
 				write.flush();

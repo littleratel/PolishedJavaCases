@@ -18,7 +18,7 @@ public class BST {
 	}
 	
 	public static boolean isValidBST(TreeNode<Integer> root) {
-		Stack<TreeNode<Integer>> stack = new Stack<TreeNode<Integer>>();
+		Stack<TreeNode<Integer>> stack = new Stack<>();
 		TreeNode<Integer> pre = null;
 		while (root != null || !stack.isEmpty()) {
 			while (root != null) {

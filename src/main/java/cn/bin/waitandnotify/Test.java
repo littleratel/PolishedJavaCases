@@ -3,7 +3,7 @@ package cn.bin.waitandnotify;
 import java.lang.ref.SoftReference;
 
 public class Test {
-	public static void main(String... args) throws InterruptedException {
+	public static void main(String... args) {
 		
 		SoftReference<Object> softRef = new SoftReference<Object>(new Object()); 
 		

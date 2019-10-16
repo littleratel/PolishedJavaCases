@@ -10,15 +10,21 @@ import com.rabbitmq.client.ConnectionFactory;
  * 消息生成者
  */
 public class Producer {
-	public final static String QUEUE_NAME = "RabbitMQ-ezfanbi";
+	public static final String QUEUE_NAME = "RabbitMQ-ezfanbi";
+	private static final String EXCHANGE = "Exchange-ezfanbi";
+	private static final String vHost = "vHost-ezfanbi";
 
 	public static void main(String[] args) throws IOException, TimeoutException, InterruptedException {
 		ConnectionFactory factory = new ConnectionFactory();
 		factory.setHost("localhost");
+		factory.setVirtualHost(vHost);
 
 		// 创建连接和通道
 		Connection connection = factory.newConnection();
 		Channel channel = connection.createChannel();
+
+		channel.exchangeDeclare(EXCHANGE, "fanout");
+
 		/**
 		 * 声明一个队列, queueDeclare 
 		 * 第一个参数表示队列名称 

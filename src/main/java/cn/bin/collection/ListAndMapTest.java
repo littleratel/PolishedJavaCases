@@ -17,21 +17,20 @@ import java.util.TreeSet;
 import java.util.Vector;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-@SuppressWarnings("unused")
 public class ListAndMapTest {
 
 	public static void main(String[] args) {
-		// testArrayList();
-		// testVector();
-		// testLinkedList();
-		// testArrayDeque();
-		// testSynchronizedList();
-		// testCopyOnWriteArrayList();
-		// testConcurrentHashMap();
-		// testHashMap();
-		// testTreeMap();
-		// testHashtable();
-		// testHashSet();
+		testArrayList();
+		testVector();
+		testLinkedList();
+		testArrayDeque();
+		testSynchronizedList();
+		testCopyOnWriteArrayList();
+		testConcurrentHashMap();
+		testHashMap();
+		testTreeMap();
+		testHashtable();
+		testHashSet();
 		testTreeSet();
 	}
 
@@ -149,19 +148,13 @@ public class ListAndMapTest {
 	}
 
 	/**
-	 * HashSet是通过HashMap实现的;
-	 * TreeSet是通过TreeMap实现的;
-	 * set.add("key")底层只是往Map中插入key.
+	 * HashSet是通过HashMap实现的; TreeSet是通过TreeMap实现的; set.add("key")底层只是往Map中插入key.
 	 * 
-	 * hashSet.add("key"){
-	 *  hashMap.put("key", new Object())；
-	 * }
+	 * hashSet.add("key"){ hashMap.put("key", new Object())； }
 	 * 
-	 * treeSet.add("key1"){
-	 * 	 treeMap.put("key1", new Object());
-	 * }
+	 * treeSet.add("key1"){ treeMap.put("key1", new Object()); }
 	 * 
-	 * */
+	 */
 	private static void testHashSet() {
 		// -----!!!!!!!!!!----- HashSet 使用
 		HashSet<String> hashSet = new HashSet<String>();

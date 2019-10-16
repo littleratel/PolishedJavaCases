@@ -1,12 +1,14 @@
 package socket.nio.demo2;
 
+import java.util.Scanner;
+
 public class Client {
 	private static String DEFAULT_HOST = "127.0.0.1";
-	private static int DEFAULT_PORT = 12345;
+	private static int SERVER_PORT = 12345;
 	private static ClientHandle clientHandle;
 
 	public static void start() {
-		start(DEFAULT_HOST, DEFAULT_PORT);
+		start(DEFAULT_HOST, SERVER_PORT);
 	}
 
 	public static synchronized void start(String ip, int port) {
@@ -14,6 +16,7 @@ public class Client {
 			clientHandle.stop();
 		
 		clientHandle = new ClientHandle(ip, port);
+		System.out.println("[Client]Start! Port is: " + port);
 		new Thread(clientHandle, "Thread-Client").start();
 	}
 
@@ -27,7 +30,13 @@ public class Client {
 		return true;
 	}
 
-	public static void main(String[] args) {
+	public static void stop() {
+		clientHandle.stop();
+	}
+
+	public static void main(String[] args) throws Exception {
 		start();
+		while (sendMsg(new Scanner(System.in).nextLine()))
+			;
 	}
 }

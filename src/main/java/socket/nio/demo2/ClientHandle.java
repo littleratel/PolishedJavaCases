@@ -145,9 +145,7 @@ public class ClientHandle implements Runnable {
 	}
 
 	private void doConnect() throws IOException {
-		if (socketChannel.connect(new InetSocketAddress(host, port)))
-			;
-		else
+		if (!socketChannel.connect(new InetSocketAddress(host, port)))
 			socketChannel.register(selector, SelectionKey.OP_CONNECT);
 	}
 }
