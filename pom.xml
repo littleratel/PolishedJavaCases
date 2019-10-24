@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>cn.bin</groupId>
 	<artifactId>JavaErrorSet</artifactId>
@@ -72,11 +72,6 @@
 			<version>26.0-jre</version>
 		</dependency>
 
-<!-- 		<dependency> -->
-<!-- 			<groupId>com.ericsson.commonlibrary</groupId> -->
-<!-- 			<artifactId>proxy</artifactId> -->
-<!-- 			<version>1.2.0</version> -->
-<!-- 		</dependency> -->
 		<dependency>
 			<groupId>cglib</groupId>
 			<artifactId>cglib</artifactId>
@@ -123,20 +118,6 @@
 			<groupId>net.java.dev.jna</groupId>
 			<artifactId>jna</artifactId>
 			<version>4.2.0</version>
-		</dependency>
-
-		<!-- jdom -->
-		<dependency>
-			<groupId>org.jdom</groupId>
-			<artifactId>jdom</artifactId>
-			<version>2.0.2</version>
-		</dependency>
-
-		<!-- dom4j, xml解析工具 -->
-		<dependency>
-			<groupId>dom4j</groupId>
-			<artifactId>dom4j</artifactId>
-			<version>1.6</version>
 		</dependency>
 
 		<!-- RabbitMQ -->
@@ -186,21 +167,8 @@
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
-			<version>1.1.25</version>
+			<version>[1.2.31,)</version>
 		</dependency>
-
-		<!-- kubectl and helm -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>com.ericsson.commonlibrary</groupId> -->
-<!-- 			<artifactId>kubectl-api</artifactId> -->
-<!-- 			<version>0.0.103</version> -->
-<!-- 		</dependency> -->
-
-<!-- 		<dependency> -->
-<!-- 			<groupId>com.ericsson.commonlibrary</groupId> -->
-<!-- 			<artifactId>helm-api</artifactId> -->
-<!-- 			<version>0.0.43</version> -->
-<!-- 		</dependency> -->
 
 		<dependency>
 			<groupId>org.json</groupId>
@@ -218,7 +186,7 @@
 		<dependency>
 			<groupId>io.netty</groupId>
 			<artifactId>netty-all</artifactId>
-			<version>4.1.38.Final</version>
+			<version>[4.1.42,)</version>
 		</dependency>
 	</dependencies>
 </project>
