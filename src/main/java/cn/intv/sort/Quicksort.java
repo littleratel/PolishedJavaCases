@@ -21,8 +21,9 @@ public class Quicksort {
 		if (left > right) {
 			return;
 		}
-		int key = array[left], tmp;
+
 		int i = left, j = right;
+		int key = array[i], tmp;
 
 		// 交换位置
 		while (i < j) {
@@ -47,12 +48,16 @@ public class Quicksort {
 		quicksort(array, i + 1, right);
 	}
 
-	// 快速排序2
+	/**
+	 * 快速排序2
+	 * 1. 选择一个基准key，将大于key的数放在右边，小于key的值放左边，将key放在交叉点上
+	 * 2. 分别将交叉点两边的数据按照步骤一重复操作
+	 * */
 	private static void quicksort2(int[] array, int left, int right) {
 		if (left > right) return;
 		
-		int key = array[left];
 		int i = left, j = right;
+		int key = array[i];
 
 		// 交换位置
 		while (i < j) {

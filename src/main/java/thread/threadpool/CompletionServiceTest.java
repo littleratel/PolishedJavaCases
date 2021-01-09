@@ -9,10 +9,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class CompletionServiceTest {
-	@SuppressWarnings("unchecked")
 	public static void main(String[] args) throws InterruptedException, ExecutionException {
 		ExecutorService executor = Executors.newFixedThreadPool(10);
-		@SuppressWarnings("rawtypes")
 		CompletionService completionService = new ExecutorCompletionService(executor);
 
 		for (int i = 1; i <= 10; i++) {

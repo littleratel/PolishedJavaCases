@@ -17,9 +17,9 @@ public class EventTest {
     public static void main(String[] args) {
 
         ApplicationContext context = new AnnotationConfigApplicationContext(EventConfigration.class);
-        CmdService cmd = (CmdService) context.getBean("cmdService");
+        EventService cmd = (EventService) context.getBean("eventService");
         cmd.sayCmd("Say hello word!");
-        cmd.sayCmd("Say say say u love me!");
-        cmd.doCmd("Do this event now!");
+//        cmd.sayCmd("Say say say u love me!");
+//        cmd.doCmd("Do this event now!");
     }
 }

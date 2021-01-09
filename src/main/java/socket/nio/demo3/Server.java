@@ -13,25 +13,26 @@ import java.util.Iterator;
 import java.util.Set;
 
 public class Server {
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		new Thread(new ReactorTask()).start();
 	}
 
 	public static class ReactorTask implements Runnable {
 		private Selector selector;
 		private int port = 1234;
-		
+		private int userCount = 0;
+
 		public ReactorTask() {
 			try {
 				// 第一步：打开ServerSocketChannel，用于监听客户端的连接，它是所有客户端连接的父管道
-				ServerSocketChannel acceptorSvr = ServerSocketChannel.open();
+				ServerSocketChannel channel = ServerSocketChannel.open();
 				// 第二步：绑定监听端口，设置连接为非阻塞模式
-				acceptorSvr.socket().bind(new InetSocketAddress(InetAddress.getByName("localhost"), port));
-				acceptorSvr.configureBlocking(false);
-				// 第三步：创建Reactor线程，创建多路复用器并启动线程
+				channel.socket().bind(new InetSocketAddress(InetAddress.getByName("localhost"), port));
+				channel.configureBlocking(false);
+				// 第三步：创建Reactor线程，多路复用器Selector,并启动线程
 				selector = Selector.open();
-				// 第四步：将ServerSocketChannel注册到Reactor线程的多路复用器Selector上，监听Accept事件
-				SelectionKey key = acceptorSvr.register(selector, SelectionKey.OP_ACCEPT);
+				// 第四步：将ServerSocketChannel注册到多路复用器Selector上，监听Accept事件
+				SelectionKey key = channel.register(selector, SelectionKey.OP_ACCEPT);
 			} catch (UnknownHostException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -47,7 +48,7 @@ public class Server {
 					selector.select(1000);
 					Set<SelectionKey> selectedKeys = selector.selectedKeys();
 					Iterator<SelectionKey> it = selectedKeys.iterator();
-					SelectionKey key = null;
+					SelectionKey key;
 					while (it.hasNext()) {
 						key = it.next();
 						it.remove();
@@ -55,6 +56,7 @@ public class Server {
 							if (key.isValid()) {
 								// 处理新接入的请求消息
 								if (key.isAcceptable()) {
+									System.out.println("Access new connection: "+ ++userCount);
 									// 第六步：多路复用器监听到有新的客户端接入，处理新的接入请求，完成TCP三次握手，建立物理链路
 									ServerSocketChannel ssc = (ServerSocketChannel) key.channel();
 									SocketChannel sc = ssc.accept();
@@ -64,6 +66,7 @@ public class Server {
 									// 第八步：将新接入的客户端连接注册到Reactor线程的多路复用器上，监听读操作，读取客户端发送的网络消息
 									sc.register(selector, SelectionKey.OP_READ);
 								}
+
 								if (key.isReadable()) {
 									// 第九步：异步读取客户端请求消息到缓存区
 									SocketChannel sc = (SocketChannel) key.channel();
@@ -76,7 +79,7 @@ public class Server {
 										readBuffer.get(bytes);
 										String body = new String(bytes, "UTF-8");
 										System.out.println("The time server receive order : " + body);
-										String currentTime = "QUERY TIME ORDER".equalsIgnoreCase(body)
+										String currentTime = "QUERY-TIME-ORDER".equalsIgnoreCase(body)
 												? new java.util.Date(System.currentTimeMillis()).toString()
 												: "BAD ORDER";
 										// 写应答
@@ -85,8 +88,8 @@ public class Server {
 										writeBuffer.put(bytes2);
 										writeBuffer.flip();
 										sc.write(writeBuffer);
-									} else if (readBytes < 0) {
-										// 对端链路关闭
+									} else if (readBytes < 0) { // 对端链路关闭
+										System.out.println("Client disconnected Connection actively.");
 										key.cancel();
 										sc.close();
 									} else

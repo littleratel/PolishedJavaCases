@@ -5,7 +5,7 @@ public interface Factory<T, R> {
 	/**
 	 * Creates a new equipment instance
 	 * 
-	 * @param resource
+	 * @param resourceData
 	 *            the configuration data used as factory input
 	 * @return Equipment instance of type T
 	 */

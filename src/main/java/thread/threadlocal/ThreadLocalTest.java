@@ -8,7 +8,7 @@ public class ThreadLocalTest {
 			return "initialThreadLocal - default";
 		}
 	};
-	public final static ThreadLocal<String> threadLocal2 = new ThreadLocal<String>();
+	public final static ThreadLocal<String> threadLocal2 = new ThreadLocal<>();
 
 	public static void setOne(String value) {
 		threadLocal1.set(value);

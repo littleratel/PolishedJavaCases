@@ -98,11 +98,8 @@ public class TreeTraverse<E extends Comparable<? super E>> {
 
 		int l = depth(Node.left);
 		int r = depth(Node.right);
-		if (l > r) {
-			return l + 1;
-		} else {
-			return r + 1;
-		}
+
+		return (l > r) ? l + 1 : r + 1;
 	}
 
 	// 前序遍历 非递归

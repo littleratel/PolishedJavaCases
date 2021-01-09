@@ -30,7 +30,7 @@ public class InsertSort {
 				j--;
 			}
 
-			arr[j] = target;
+			arr[j+1] = target;
 		}
 	}
 }

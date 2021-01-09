@@ -15,7 +15,7 @@ public class MyReturnListener implements ReturnListener {
 
 	@Override
 	public void handleReturn(int replyCode, String replyText, String exchange, String routingKey,
-			BasicProperties properties, byte[] body) throws IOException {
+			BasicProperties properties, byte[] body) {
 		System.out.println("消息发送到队列失败：回复失败编码：" + replyCode + ";回复失败文本：" + replyText + ";失败消息对象："
 				+ SerializationUtils.deserialize(body));
 	}

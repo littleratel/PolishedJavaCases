@@ -1,5 +1,8 @@
 package cn.bin.collection;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -20,22 +23,24 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class ListAndMapTest {
 
 	public static void main(String[] args) {
-		testArrayList();
-		testVector();
-		testLinkedList();
-		testArrayDeque();
-		testSynchronizedList();
-		testCopyOnWriteArrayList();
-		testConcurrentHashMap();
-		testHashMap();
-		testTreeMap();
-		testHashtable();
-		testHashSet();
-		testTreeSet();
+//		testArrayList();
+//		testVector();
+//		testLinkedList();
+//		testArrayDeque();
+//		testSynchronizedList();
+//		testCopyOnWriteArrayList();
+//		testConcurrentHashMap();
+//		testConcurrentSkipListMap();
+//		testHashMap();
+		testLinkedHashMap();
+//		testWeakHashMap();
+//		testTreeMap();
+//		testHashtable();
+//		testHashSet();
+//		testTreeSet();
 	}
 
 	private static void testArrayList() {
-		// -----!!!!!!!!!!----- ArrayList
 		ArrayList<String> list = new ArrayList<String>(7);
 		list.add("value");
 		list.add(1, "value1");
@@ -51,7 +56,6 @@ public class ListAndMapTest {
 	}
 
 	private static void testVector() {
-		// -----!!!!!!!!!!----- Vector
 		Vector<String> vector = new Vector<>();
 		vector.add("value0");
 		vector.get(0);
@@ -59,7 +63,6 @@ public class ListAndMapTest {
 	}
 
 	private static void testLinkedList() {
-		// -----!!!!!!!!!!----- LinkedList
 		LinkedList<Integer> list = new LinkedList<Integer>();
 		list.add(8);
 		list.add(5);
@@ -77,34 +80,32 @@ public class ListAndMapTest {
 				return y.compareTo(x);
 			}
 		});
+
 		for (int a : list) {
 			System.out.print(a + " ");
 		}
 	}
 
 	private static void testArrayDeque() {
-		// -----!!!!!!!!!!----- ArrayDeque
 		ArrayDeque<Integer> deque = new ArrayDeque<Integer>();
 		deque.addFirst(11);
 		deque.addLast(12);
 	}
 
+	// synchronized (mutex) { return lst.xxx() }
 	private static void testSynchronizedList() {
-		// -----!!!!!!!!!!----- synchronizedList
-		List<String> synchList = Collections.synchronizedList(new ArrayList<String>());
+		List<String> synchList = Collections.synchronizedList(new ArrayList<>());
 		synchList.add("hello");
 		System.out.println(synchList.get(0));
 	}
 
 	private static void testCopyOnWriteArrayList() {
-		// -----!!!!!!!!!!----- CopyOnWriteArrayList
 		List<Integer> tempList = Arrays.asList(new Integer[] { 1, 2 });
 		CopyOnWriteArrayList<Integer> cpyList = new CopyOnWriteArrayList<>(tempList);
 		cpyList.add(12);
 	}
 
 	private static void testConcurrentHashMap() {
-		// -----!!!!!!!!!!----- ConcurrentHashMap
 		ConcurrentHashMap<String, String> concurrentMap = new ConcurrentHashMap<String, String>();
 		for (int i = 1; i < 33; i++) {
 			concurrentMap.put(("key" + i), ("value" + i));
@@ -116,8 +117,13 @@ public class ListAndMapTest {
 		System.out.println(concurrentMap.size() == concurrentMap.mappingCount());
 	}
 
+	// 跳表
+	private static void testConcurrentSkipListMap() {
+
+
+	}
+
 	private static void testHashMap() {
-		// -----!!!!!!!!!!----- HashMap使用
 		HashMap<String, String> hashMap = new HashMap<String, String>(16);
 		for (int i = 1; i < 33; i++) {
 			hashMap.put(("key" + i), ("value" + i));
@@ -125,8 +131,26 @@ public class ListAndMapTest {
 		System.out.println(hashMap.size());
 	}
 
+	//  extends HashMap implements Map
+	private static void testLinkedHashMap() {
+		LinkedHashMap<String, String> map = new LinkedHashMap<String, String>(16, 0.75f,true);
+		for (int i = 1; i < 3; i++) {
+			map.put(("key" + i), ("value" + i));
+		}
+		map.get("key1");
+		System.out.println(map.size());
+	}
+
+	private static void testWeakHashMap() {
+		Map<String, String> map = new WeakHashMap<>();
+
+		for (int i = 1; i < 33; i++) {
+			map.put(("key" + i), ("value" + i));
+		}
+		System.out.println(map.size());
+	}
+
 	private static void testTreeMap() {
-		// -----!!!!!!!!!!----- TreeMap使用
 		// 默认按key的升序排序
 		TreeMap<String, Integer> treeMap = new TreeMap<String, Integer>();
 		treeMap.put(("key" + 7), 7);
@@ -141,7 +165,6 @@ public class ListAndMapTest {
 	}
 
 	private static void testHashtable() {
-		// -----!!!!!!!!!!----- Hashtable 使用
 		Hashtable<String, String> table = new Hashtable<String, String>();
 		table.put("key1", "value");
 		table.get("key");
@@ -149,14 +172,10 @@ public class ListAndMapTest {
 
 	/**
 	 * HashSet是通过HashMap实现的; TreeSet是通过TreeMap实现的; set.add("key")底层只是往Map中插入key.
-	 * 
 	 * hashSet.add("key"){ hashMap.put("key", new Object())； }
-	 * 
 	 * treeSet.add("key1"){ treeMap.put("key1", new Object()); }
-	 * 
 	 */
 	private static void testHashSet() {
-		// -----!!!!!!!!!!----- HashSet 使用
 		HashSet<String> hashSet = new HashSet<String>();
 		hashSet.add("key");
 		for (String k : hashSet) {
@@ -165,7 +184,6 @@ public class ListAndMapTest {
 	}
 
 	private static void testTreeSet() {
-		// -----!!!!!!!!!!----- TreeSet 使用
 		TreeSet<String> treeSet = new TreeSet<String>();
 		treeSet.add("key5");
 		treeSet.add("key1");

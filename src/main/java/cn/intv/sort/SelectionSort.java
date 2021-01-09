@@ -26,12 +26,16 @@ public class SelectionSort {
 					min = j;
 				}
 			}
+			
 			if(min != i){
-				int tmp = arr[min];
-				arr[min] = arr[i];
-				arr[i] = tmp;
+				swap(arr,min,i);
 			}
 		}
 	}
 
+	private static void swap(int[] arr, int i, int j) {
+		int tmp = arr[j];
+		arr[j] = arr[i];
+		arr[i] = tmp;
+	}
 }

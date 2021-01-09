@@ -1,24 +1,27 @@
 package cn.bin.innerclass;
 
-import cn.bin.innerclass.FunLisenter;
-
 public class TestDemo {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		mainFun();
-	}
-	
-	public static void mainFun() {
-		final String str = null;
+    private int a = 0;
 
-		new FunLisenter() {
-			@Override
-			public void fun() {
-				System.out.println(str);
-			}
-		}.fun();
-		
-	}
-	
+    public static void main(String[] args) {
+//		mainFun();
+    }
+
+    public void mainFun() {
+        FunLisenter f = () -> {
+            a = 1;
+			System.out.println(a);
+        };
+
+        new FunLisenter() {
+            @Override
+            public void fun() {
+				a = 1;
+                System.out.println(a);
+            }
+        }.fun();
+
+    }
+
 }

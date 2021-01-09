@@ -12,6 +12,7 @@ import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 
 public class CustomerBaseDirect2 {
+	private static final String QUEUE = "Queue_hw_2";
 	private static final String EXCHANGE = "Exchange-ezfanbi";
 	// 路由关键字
 	private static final String[] routingKeys = new String[] { "info", "warning" };
@@ -21,14 +22,13 @@ public class CustomerBaseDirect2 {
 		factory.setHost("localhost");
 		Connection connection = factory.newConnection();
 		Channel channel = connection.createChannel();
-		// 声明交换器
 		channel.exchangeDeclare(EXCHANGE, "direct");
-		// 获取匿名队列名称
-		String queueName = channel.queueDeclare().getQueue();
+		channel.queueDeclare(QUEUE,false,true,false,null);
+
 		// 根据路由关键字进行多重绑定
 		for (String severity : routingKeys) {
-			channel.queueBind(queueName, EXCHANGE, severity);
-			System.out.println("Customer2 queue:" + queueName + ", BindRoutingKey:" + severity);
+			channel.queueBind(QUEUE, EXCHANGE, severity);
+			System.out.println("Customer2 queue:" + QUEUE + ", BindRoutingKey:" + severity);
 		}
 		
 		System.out.println("Customer2 Waiting for messages!");
@@ -44,6 +44,6 @@ public class CustomerBaseDirect2 {
 		};
 
 		boolean autoAck = false;
-		channel.basicConsume(queueName, autoAck, consumer);
+		channel.basicConsume(QUEUE, autoAck, consumer);
 	}
 }

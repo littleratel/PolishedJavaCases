@@ -9,7 +9,7 @@ import java.net.Socket;
 public class SocketClient {
 	private final static int DEFAULT_PORT = 5209;
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		clientBaseIO();
 	}
 
@@ -31,20 +31,16 @@ public class SocketClient {
 			PrintWriter write = new PrintWriter(socket.getOutputStream());
 
 			while (!readline.equals("\r\n")) {
-				// socket write
 				write.println(readline);
 				write.flush();
-
-				// socket read
 				System.out.println("Server:" + read.readLine());
-				// re-input
 				readline = br.readLine();
 			}
 
-			// close all
 			write.close();
 			read.close();
 			socket.close();
+			System.out.println("isConnected: " + socket.isClosed());
 		} catch (Exception e) {
 			System.out.println("can not listen to:" + e);
 		}
