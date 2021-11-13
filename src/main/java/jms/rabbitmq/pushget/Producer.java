@@ -26,6 +26,8 @@ public class Producer {
             channel = connection.createChannel();
             channel.queueDeclare(QUEUE, true, false, false, null);
             channel.exchangeDeclare(EXCHANGE, BuiltinExchangeType.TOPIC,true);
+
+            //
             channel.basicQos(3,true);
 
             for (String routingKey : ROUTINGKEY) {
@@ -42,7 +44,7 @@ public class Producer {
              */
             AMQP.BasicProperties properties = new AMQP.BasicProperties.Builder().deliveryMode(2).
                     contentEncoding("UTF-8").build();
-            for (int i = 1; i < 20; i++) {
+            for (int i = 1; i < 38; i++) {
                 String message = "Email MSG to user_" + i;
                 channel.basicPublish(EXCHANGE, "info.email", properties, message.getBytes());
                 System.out.println("Producer send msg to mq: " + message);

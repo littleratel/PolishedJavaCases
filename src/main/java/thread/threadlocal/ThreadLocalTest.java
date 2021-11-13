@@ -1,47 +1,39 @@
 package thread.threadlocal;
 
+import util.SleepUtil;
+
 public class ThreadLocalTest {
 
-	public final static ThreadLocal<String> threadLocal1 = new ThreadLocal<String>(){
-		@Override
-		protected String initialValue() {
-			return "initialThreadLocal - default";
-		}
-	};
-	public final static ThreadLocal<String> threadLocal2 = new ThreadLocal<>();
+    public final static ThreadLocal<String> tl = ThreadLocal.withInitial(() -> "TL_initial_");
 
-	public static void setOne(String value) {
-		threadLocal1.set(value);
-	}
-	public static void setTwo(String value) {
-		threadLocal2.set(value);
-	}
+    /**
+     * Output:
+     * Thread-0 Set 0
+     * Thread-5 Set 5
+     * Thread-3 Set 3
+     * Thread-1 Set 1
+     * Thread-4 Set 4
+     * Thread-2 Set 2
+     * */
+    public static void main(String[] args) {
+        for (int i = 0; i < 6; i++) {
+            int index = i;
+            Thread t = new Thread(() -> {
+                try {
+                    String tName = Thread.currentThread().getName();
+                    tl.set(tName + " Set " + index);
+                    SleepUtil.sleepInMillis((int) (Math.random() * 1000));
+                    System.out.println(tl.get());
+                } finally {
+                    tl.remove();
+                }
+            });
 
-	public static void display() {
-		System.out.println(threadLocal1.get() + " : " + threadLocal2.get());
-	}
+            t.start();
+        }
 
-	public static void main(String[] args) {
-		for (int i = 0; i < 2; i++) {
-			final int index = i + 1;
-			final String resouce1 = "线程 - " + index;
-			final String resouce2 = "value = (" + index + ")[原值]";
-			new Thread() {
-				public void run() {
-					try {
-						display();
-						setOne(resouce1);
-						setTwo(resouce2);
-						display();
-						setOne("线程 - " + index);
-						setTwo("value = (" + index + ")[修改]");
-						display();
-					} finally {
-						threadLocal1.remove();
-						threadLocal2.remove();
-					}
-				}
-			}.start();
-		}
-	}
+        while (Thread.activeCount() > 2) ;
+
+        System.out.println("End Test.");
+    }
 }

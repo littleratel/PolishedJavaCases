@@ -3,7 +3,7 @@ package spring.ioc.factory;
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
 
-import exceptions.ResourceConfigurationException;
+import throwable.exceptions.ResourceConfigurationException;
 import spring.ioc.resourcedata.ConfigurationData;
 
 /**

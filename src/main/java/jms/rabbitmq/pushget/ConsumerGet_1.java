@@ -23,7 +23,7 @@ public class ConsumerGet_1 {
         Connection connection = connectionFactory.newConnection();
         Channel channel = connection.createChannel();
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 100; i++) {
             GetResponse response = channel.basicGet(QUEUE, false);
             if (response == null) {
                 TimeUnit.SECONDS.sleep(1);
@@ -32,10 +32,10 @@ public class ConsumerGet_1 {
 
             String data = new String(response.getBody());
             long msgId = response.getEnvelope().getDeliveryTag();
-            System.out.println("Consumer_1 get: " + data + ", msgId: " + msgId);
+            System.out.println("Consumer_1 get: " + data + "! msgId: " + msgId);
             TimeUnit.SECONDS.sleep(2);
             channel.basicAck(msgId, false);
-            System.out.println("========> Consumer_1 send basicAck.");
+//            System.out.println("========> Consumer_1 send basicAck.");
         }
 
         channel.close();

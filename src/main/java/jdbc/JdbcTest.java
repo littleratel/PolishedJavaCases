@@ -2,6 +2,7 @@ package jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -40,11 +41,11 @@ public class JdbcTest {
                 System.out.println("Succeeded connecting to the Database!");
             }
 
-            // 获得Statement
+            // 获得 Statement
             Statement statement = conn.createStatement();
             String sql = "select * from rule";
-            ResultSet rs = statement.executeQuery(sql);
 
+            ResultSet rs = statement.executeQuery(sql);
             System.out.println("--------------这里是展示-----------");
             while (rs.next()) {
                 System.out.println(rs.getString("name") + " " + rs.getString("account"));

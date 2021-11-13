@@ -60,6 +60,7 @@ public class LightweightConnectionPoolImpl<T> implements LightweightConnectionPo
             if (!available.tryAcquire(0, TimeUnit.SECONDS)) {
                 available.acquire(); // blocked
             }
+
             PoolObject<T> poolObject = pool.poll(POLL_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
             if (poolObject != null) {
                 log.trace("Successfully reserved a previously created pooled instance");

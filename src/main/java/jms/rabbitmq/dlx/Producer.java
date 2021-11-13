@@ -36,27 +36,33 @@ public class Producer {
         channel.queueBind(QUEUE_DLX, EXCHANGE_DLX, routingKey);
 
 
-        //Dead Msg Exchange
+        //消息属性
         Map<String, Object> agruments = new HashMap<>();
-        agruments.put("x-message-ttl", 10000); // 消息生存时间,以队列超期时间为主
+        agruments.put("x-message-ttl", 1000000); // 消息生存时间,以队列超期时间为主
         agruments.put("x-dead-letter-exchange", EXCHANGE_DLX);
         agruments.put("x-dead-letter-routing-key", "dlx.test");
+        // 1.队列最大消息数量为
+        agruments.put("x-max-length", 5);
+        // 2.队列中消息体总字节数,只计算消息体的字节数，不算消息头、消息属性等字节数
+//        agruments.put("x-max-length-bytes ", 1000);
 
         // Normal Exchange and Queue
         channel.exchangeDeclare(exchangeNormal, BuiltinExchangeType.TOPIC, true, false, null);
         channel.queueDeclare(queueNormal, true, false, false, agruments);
         channel.queueBind(queueNormal, exchangeNormal, routingKey);
 
+
         // send msg
-        String msg = "Message of RabbitMQ";
         AMQP.BasicProperties properties = new AMQP.BasicProperties.Builder()
                 .deliveryMode(2) // 1: nonpersistent 2: persistent
                 .contentEncoding("UTF-8")
-                .expiration("5000") // can also declare it in agruments
+                .expiration("7000") // can also declare it in agruments
                 .build();
 
-        System.out.println("Producer send mag...");
-        channel.basicPublish(exchangeNormal, routingKey, true, properties, msg.getBytes());
+        for (int i = 1; i < 7; i++) {
+            String msg = "Message of RabbitMQ: " + i;
+            System.out.println("Producer send mag...");
+            channel.basicPublish(exchangeNormal, routingKey, true, properties, msg.getBytes());
+        }
     }
-
 }

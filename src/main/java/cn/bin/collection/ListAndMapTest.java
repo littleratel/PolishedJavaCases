@@ -31,8 +31,8 @@ public class ListAndMapTest {
 //		testCopyOnWriteArrayList();
 //		testConcurrentHashMap();
 //		testConcurrentSkipListMap();
-//		testHashMap();
-		testLinkedHashMap();
+		testHashMap();
+//		testLinkedHashMap();
 //		testWeakHashMap();
 //		testTreeMap();
 //		testHashtable();
@@ -73,13 +73,12 @@ public class ListAndMapTest {
 		System.out.println("size is " + list.size());
 		// 两种方式实现比较
 		Collections.sort(list);
-		list.sort(new Comparator<Integer>() {
-			@Override
-			public int compare(Integer x, Integer y) {
-				// x.compareTo(y) 是从小往大排序
-				return y.compareTo(x);
-			}
+		list.sort((x, y) -> {
+			// x.compareTo(y) 是从小往大排序
+			return y.compareTo(x);
 		});
+
+		list.get(2);
 
 		for (int a : list) {
 			System.out.print(a + " ");
@@ -124,7 +123,7 @@ public class ListAndMapTest {
 	}
 
 	private static void testHashMap() {
-		HashMap<String, String> hashMap = new HashMap<String, String>(16);
+		HashMap<String, String> hashMap = new HashMap<>();
 		for (int i = 1; i < 33; i++) {
 			hashMap.put(("key" + i), ("value" + i));
 		}
@@ -133,11 +132,18 @@ public class ListAndMapTest {
 
 	//  extends HashMap implements Map
 	private static void testLinkedHashMap() {
-		LinkedHashMap<String, String> map = new LinkedHashMap<String, String>(16, 0.75f,true);
-		for (int i = 1; i < 3; i++) {
-			map.put(("key" + i), ("value" + i));
+		LinkedHashMap<String, String> map = new LinkedHashMap<>(16, 0.75f, true);
+		map.put("数学", "数学老师");
+		map.put("化学", "化学老师");
+		map.put("物理", "物理老师");
+		map.put("生物", "生物老师");
+		map.put("政治", "政治老师");
+//		map.put("数学", "数学老师");
+		map.get("化学");
+		for (Map.Entry<String, String> entry : map.entrySet()) {
+			System.out.println(entry.getKey() + "-->" + entry.getValue());
 		}
-		map.get("key1");
+
 		System.out.println(map.size());
 	}
 
@@ -152,7 +158,7 @@ public class ListAndMapTest {
 
 	private static void testTreeMap() {
 		// 默认按key的升序排序
-		TreeMap<String, Integer> treeMap = new TreeMap<String, Integer>();
+		TreeMap<String, Integer> treeMap = new TreeMap<>();
 		treeMap.put(("key" + 7), 7);
 		treeMap.put(("key" + 1), 1);
 		treeMap.put(("key" + 5), 5);

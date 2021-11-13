@@ -37,7 +37,7 @@ public class ConsumerHandle extends DefaultConsumer {
                 getChannel().basicAck(tagId, false);
                 break;
             case NACK:
-                // nack并且不重新入队列，该消息会从MQ中删除
+                // nack 并且不重新入队列，该消息会从MQ中删除
                 getChannel().basicNack(tagId, false,false);
                 break;
             case REJECT:

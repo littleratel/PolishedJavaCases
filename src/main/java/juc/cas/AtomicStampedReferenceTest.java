@@ -5,12 +5,10 @@ import java.util.concurrent.atomic.AtomicStampedReference;
 public class AtomicStampedReferenceTest {
 
 	public static void main(String[] args) {
-		final AtomicStampedReference<Integer> money = new AtomicStampedReference<Integer>(19, 0);
+		final AtomicStampedReference<Integer> money = new AtomicStampedReference<>(19, 0);
 
-		// 模拟多个线程更新数据库，为用户充值
 		for (int i = 0; i < 3; i++) {
 			final int timestamp = money.getStamp();
-
 			new Thread() {
 				public void run() {
 					while (true) {

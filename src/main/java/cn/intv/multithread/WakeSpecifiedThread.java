@@ -15,7 +15,6 @@ public class WakeSpecifiedThread {
 	public static void main(String[] args) {
 
 		Thread t1 = new Thread() {
-
 			@Override
 			public void run() {
 				lock.lock();
@@ -39,7 +38,6 @@ public class WakeSpecifiedThread {
 
 		//
 		Thread t2 = new Thread() {
-
 			@Override
 			public void run() {
 				lock.lock();

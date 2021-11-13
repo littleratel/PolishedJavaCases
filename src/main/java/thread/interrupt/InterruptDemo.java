@@ -1,21 +1,22 @@
 package thread.interrupt;
 
+import org.junit.Test;
+import util.SleepUtil;
+
 public class InterruptDemo {
 
-    public static void main(String[] args) {
-        try {
-            MyThread thread = new MyThread();
-            thread.start();
-            Thread.sleep(1000);
-            thread.interrupt();
-            System.out.println("Thread is interrupted: " + thread.isInterrupted());
-        } catch (InterruptedException e) {
-            System.out.println("捕获中断异常");
-            e.printStackTrace();
-        }
+    @Test
+    public void main() {
+        MyThread thread = new MyThread();
+        thread.start();
+
+        SleepUtil.sleep(1);
+        thread.interrupt();
+
+        SleepUtil.sleep(1);
+        System.out.println("Thread is interrupted: " + thread.isInterrupted());
         System.out.println("main线程执行完成");
     }
-
 }
 
 class MyThread extends Thread {
@@ -26,12 +27,7 @@ class MyThread extends Thread {
                 System.out.println(Thread.currentThread().getName() + " was interrupted!");
                 break;
             }
-//            try {
-//                Thread.sleep(10000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//                break;
-//            }
+//            SleepUtil.sleep(1);
         }
         System.out.println("mythread执行完成");//尽管线程被中断,但并没有结束运行。这行代码还是会被执行
     }

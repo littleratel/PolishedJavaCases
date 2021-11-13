@@ -57,17 +57,13 @@ public class ReentrantReadWriteLockTest {
 
     private static Thread rwThread(ReentrantReadWriteLockTest wr, String name) {
         if (name.charAt(0) == 'R') {
-            return new Thread(new Runnable() {
-                public void run() {
-                    wr.read();
-                }
+            return new Thread(() -> {
+                wr.read();
             }, name);
         }
 
-        return new Thread(new Runnable() {
-            public void run() {
-                wr.write();
-            }
+        return new Thread(() -> {
+            wr.write();
         }, name);
     }
 }

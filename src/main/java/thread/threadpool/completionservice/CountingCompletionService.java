@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class CountingCompletionService<V> extends ExecutorCompletionService<V> {
 
-    final Logger logger = LoggerFactory.getLogger(CountingCompletionService.class);
+//    final Logger logger = LoggerFactory.getLogger(CountingCompletionService.class);
 
     private final AtomicLong submittedTasks = new AtomicLong();
     private final AtomicLong completedTasks = new AtomicLong();
@@ -118,7 +118,7 @@ public class CountingCompletionService<V> extends ExecutorCompletionService<V> {
                 Future<V> future = poll(3, TimeUnit.SECONDS);
                 if (future != null) {
                     results.add(future.get());
-                    logger.info("{} has {} task(s) remaining,", taskName, getNumberOfUncompletedTasks());
+//                    logger.info("{} has {} task(s) remaining,", taskName, getNumberOfUncompletedTasks());
                 }
             } catch (InterruptedException | CancellationException | ExecutionException e) {
                 throw new CompletionException(taskName + " failed", e);

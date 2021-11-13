@@ -15,8 +15,8 @@ public class Test {
         // 将生成的代理类写入硬盘
         System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
 
-         TestJdkProxy1();
-//		 TestJdkProxy2();
+//         TestJdkProxy1();
+		 TestJdkProxy2();
 //		TestJdkProxy3();
     }
 
@@ -33,11 +33,11 @@ public class Test {
     }
 
     private static void TestJdkProxy2() {
-        Target target = new TargetImpl();
+        Target targetProxy = new TargetImpl();
 
-        CheckHandler checkHandler = new CheckHandler(target);
-        Target targetProxy = (Target) checkHandler.getObjectProxy();
-        System.out.println("=====> " + targetProxy.getClass().getName());
+//        CheckHandler checkHandler = new CheckHandler(target);
+//        Target targetProxy = (Target) checkHandler.getObjectProxy();
+//        System.out.println("=====> " + targetProxy.getClass().getName());
 
         // 加了第二层嵌套
         LogHandler logHandler = new LogHandler(targetProxy);

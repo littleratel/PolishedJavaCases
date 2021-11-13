@@ -20,9 +20,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 
-/**
- * Created by ezuoyin on 3/8/17.
- */
 public class ClientCustomSSL {
     public final static void main(String[] args) {
         try {

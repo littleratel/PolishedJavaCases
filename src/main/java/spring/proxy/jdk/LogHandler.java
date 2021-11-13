@@ -13,16 +13,20 @@ public class LogHandler implements InvocationHandler {
 	}
 
 	public Object getObjectProxy() {
-		return Proxy.newProxyInstance(this.getClass().getClassLoader(),
+		return Proxy.newProxyInstance(target.getClass().getClassLoader(),
 				target.getClass().getInterfaces(), this);
 	}
 
 	@Override
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
-		System.out.println(this.getClass().getSimpleName()+" print Log before call "+method.getName());		
-		Object result = method.invoke(target, args);		
-		System.out.println(this.getClass().getSimpleName()+" print Log after call "+method.getName());	
+		if (Object.class.equals(method.getDeclaringClass())) {
+			return method.invoke(this, args);
+		}
+
+		System.out.println(this.getClass().getSimpleName()+" print Log before call "+method.getName());
+		Object result = method.invoke(target, args);
+		System.out.println(this.getClass().getSimpleName()+" print Log after call "+method.getName());
 		return result;
 	}
 

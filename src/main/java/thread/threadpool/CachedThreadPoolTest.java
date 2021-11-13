@@ -1,5 +1,7 @@
 package thread.threadpool;
 
+import util.SleepUtil;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -13,34 +15,26 @@ import java.util.concurrent.Executors;
  * "main" java.lang.OutOfMemoryError: Java heap space
  */
 public class CachedThreadPoolTest {
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
-		for (int i = 0; i < 10; i++) {
-			final int index = i + 1;
+        ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
 
-			// 场景2：任务处理时间较短
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+        for (int i = 0; i < 10; i++) {
+            final int index = i + 1;
 
-			cachedThreadPool.execute(new Runnable() {
-				public void run() {
-					// 场景1：任务处理时间较长
-					try {
-						Thread.sleep(5000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					System.out.println(Thread.currentThread().getName() + "执行任务" + index);
-				}
+            // 场景2：任务处理时间较短
+            SleepUtil.sleepInMillis(500);
 
-			});
-		}
+            cachedThreadPool.execute(new Runnable() {
+                public void run() {
+                    // 场景1：任务处理时间较长
+                    SleepUtil.sleepInMillis(5000);
+                    System.out.println(Thread.currentThread().getName() + "执行任务" + index);
+                }
+            });
+        }
 
-		cachedThreadPool.shutdown();
-	}
+        cachedThreadPool.shutdown();
+    }
 
 }

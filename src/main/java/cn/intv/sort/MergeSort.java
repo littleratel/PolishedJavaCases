@@ -1,7 +1,18 @@
 package cn.intv.sort;
 
 public class MergeSort {
+    public static void main(String[] args) {
+        int[] data = new int[]{12, 4, -1, 3, 15, 8, 1, 13, -3, 0};
+        System.out.println("初始化：");
+        print(data);
+
+        mergeSort(data, 0, data.length - 1);
+        System.out.println("排序后:");
+        print(data);
+    }
+
     // 归并排序
+    //
     public static void mergeSort(int[] arr, int left, int right) {
         if (left >= right)
             return;
@@ -10,8 +21,6 @@ public class MergeSort {
         mergeSort(arr, left, mid);
         mergeSort(arr, mid + 1, right);
         merge(arr, left, mid, right);
-//        System.out.print("排序中:\t");
-//        print(arr);
     }
 
     public static void merge(int[] arr, int low, int mid, int high) {
@@ -24,15 +33,6 @@ public class MergeSort {
 
         while (i <= mid) arr[k++] = b[i++];
         while (j <= high) arr[k++] = b[j++];
-    }
-
-    public static void main(String[] args) {
-        int[] data = new int[]{12, 4, -1, 3, 15, 8, 1, 13, -3, 0};
-        System.out.println("初始化：");
-        print(data);
-        mergeSort(data, 0, data.length - 1);
-        System.out.println("排序后:");
-        print(data);
     }
 
     public static void print(int[] data) {

@@ -8,10 +8,7 @@ public class Apple {
     
     @FruitColor(fruitColor=Color.RED)
     private String appleColor;
-    
-    @FruitProvider(id=1,name="�����츻ʿ����",address="����ʡ�������Ӱ�·89�ź츻ʿ����")
-    private String appleProvider;
-    
+
     public void setAppleName(String appleName) {
     	this.appleName = appleName;
     }
@@ -25,15 +22,8 @@ public class Apple {
     public String getAppleColor() {
         return appleColor;
     }
-    
-    public void setAppleProvider(String appleProvider) {
-        this.appleProvider = appleProvider;
-    }
-    public String getAppleProvider() {
-        return appleProvider;
-    }
-    
+
     public void displayName(){
-        System.out.println("ˮ���������ǣ�ƻ��");
+        System.out.println(appleName);
     }
 }

@@ -22,7 +22,6 @@ public class BubbleSort {
 		boolean exchanged;
 		for (int i = len; i > 0; i--) {
 			exchanged = false;
-			exchanged = false;
 			for (int j = 0; j < i; j++) {
 				if (arr[j] > arr[j + 1]) {
 					int tmp = arr[j];

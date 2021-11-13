@@ -24,9 +24,9 @@ public class ConsumerGet_2 {
         Channel channel = connection.createChannel();
 
         // qos即服务端限流，qos对于拉模式的消费方式无效
-//        channel.basicQos(1);
+        // channel.basicQos(1);
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 100; i++) {
             GetResponse response = channel.basicGet(QUEUE, false);
             if (response == null) {
                 TimeUnit.SECONDS.sleep(1);
@@ -36,9 +36,9 @@ public class ConsumerGet_2 {
             String data = new String(response.getBody());
             long msgId = response.getEnvelope().getDeliveryTag();
             System.out.println("Consumer_2 get : " + data + ", msgId: " + msgId);
-            TimeUnit.SECONDS.sleep(5);
+            TimeUnit.SECONDS.sleep(9);
             channel.basicAck(msgId, false);
-            System.out.println("========> Consumer_2 send basicAck.");
+//            System.out.println("========> Consumer_2 send basicAck.");
         }
 
         channel.close();

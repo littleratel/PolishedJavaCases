@@ -8,7 +8,7 @@ import java.util.Set;
 import org.reflections.Reflections;
 
 import designpattern.decorator.Decorator;
-import exceptions.NonExistantDecoratorException;
+import throwable.exceptions.NonExistantDecoratorException;
 
 /**
  * Factory of decorators.

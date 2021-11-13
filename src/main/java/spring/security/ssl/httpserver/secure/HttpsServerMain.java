@@ -8,9 +8,6 @@ import org.glassfish.grizzly.ssl.SSLEngineConfigurator;
 
 import java.io.IOException;
 
-/**
- * Created by ezuoyin on 3/8/17.
- */
 public class HttpsServerMain {
     public static void main(String[] args){
         SSLContextConfigurator sslContextConfigurator = new SSLContextConfigurator();

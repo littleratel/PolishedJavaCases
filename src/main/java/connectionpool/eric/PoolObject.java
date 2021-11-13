@@ -1,7 +1,10 @@
 package connectionpool.eric;
 
+import lombok.Getter;
+
 import java.util.Objects;
 
+@Getter
 public class PoolObject<T> {
     private final String id;
     private final T object;
@@ -9,20 +12,6 @@ public class PoolObject<T> {
     PoolObject(String id, T object) {
         this.id = id;
         this.object = object;
-    }
-
-    /**
-     * @return an unique identifier among objects in the same pool.
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * @return the actual object being pooled.
-     */
-    public T getObject() {
-        return object;
     }
 
     @Override

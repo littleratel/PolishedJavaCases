@@ -10,7 +10,7 @@ import java.util.Map;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.core.io.Resource;
 
-import exceptions.ResourceManagerException;
+import throwable.exceptions.ResourceManagerException;
 import spring.ioc.factory.Factory;
 import spring.ioc.resource.ResourceProvider;
 import spring.ioc.resource.ResourceProviderImpl;

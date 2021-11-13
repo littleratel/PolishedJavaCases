@@ -11,9 +11,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Writer;
 
-/**
- * Created by ezuoyin on 3/7/17.
- */
 public class ServerMain {
     public static void main(String[] args) {
         HttpServer httpServer = HttpServer.createSimpleServer(null, ServerSettings.HTTP_PORT);

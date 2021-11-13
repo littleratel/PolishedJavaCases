@@ -24,6 +24,7 @@ public class Consumer01 {
         Channel channel = connection.createChannel();
         channel.queueDeclare(QUEUE, false, false, false, null);
 
+        // push model
         channel.basicConsume(QUEUE, true, new ConsumerHandle(channel));
 
         //关闭连接, 先关闭通道

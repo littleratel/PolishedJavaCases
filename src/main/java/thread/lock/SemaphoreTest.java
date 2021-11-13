@@ -15,18 +15,20 @@ public class SemaphoreTest {
             executorService.execute(() -> {
                 try {
                     semaphore.acquire();  //尝试获取信号量
-                    System.out.println(Thread.currentThread().getName() + ":开始执行");
-                    TimeUnit.SECONDS.sleep(2);  //模拟负责业务操作-休眠2秒
-                    System.out.println(Thread.currentThread().getName() + ":执行完成");
+                    System.out.println(Thread.currentThread().getName() + ": 开始执行");
+                    TimeUnit.SECONDS.sleep(2);
+                    System.out.println(Thread.currentThread().getName() + ": 执行完成");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
-                    semaphore.release(); //释放信号量
-                    System.out.println(Thread.currentThread().getName() + ":----------释放");
+                    semaphore.release();
+                    System.out.println(Thread.currentThread().getName() + ": ........ 释放");
                 }
 
             });
         }
+
+        executorService.shutdown();
     }
 
 }

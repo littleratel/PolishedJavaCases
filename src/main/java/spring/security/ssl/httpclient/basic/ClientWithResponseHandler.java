@@ -12,9 +12,6 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 
-/**
- * Created by ezuoyin on 3/8/17.
- */
 public class ClientWithResponseHandler {
     public static void main(String[] args){
         try(CloseableHttpClient httpClient = HttpClients.createDefault()) {

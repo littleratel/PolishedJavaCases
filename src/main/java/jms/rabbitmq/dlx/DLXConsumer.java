@@ -19,6 +19,6 @@ public class DLXConsumer {
         Connection connection = connectionFactory.newConnection();
         Channel channel = connection.createChannel();
 
-        channel.basicConsume(queueDlx, true, new ConsumerHandle(channel));
+        channel.basicConsume(queueDlx, false, new ConsumerHandle(channel,AckType.ACK));
     }
 }

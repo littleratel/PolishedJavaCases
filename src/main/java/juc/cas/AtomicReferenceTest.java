@@ -5,12 +5,9 @@ import java.util.concurrent.atomic.AtomicReference;
 public class AtomicReferenceTest {
 	public static void main(String[] args) {
 
-		// 在这里使用AtomicReference
-		final AtomicReference<Integer> money = new AtomicReference<Integer>();
-		// 初始卡余额小于20
+		final AtomicReference<Integer> money = new AtomicReference<>();
 		money.set(19);
 
-		// 模拟多个线程更新数据库，为用户充值
 		for (int i = 0; i < 3; i++) {
 			new Thread() {
 				public void run() {
@@ -37,11 +34,9 @@ public class AtomicReferenceTest {
 			}.start();
 		}
 
-		// 用户消费进程，模拟消费行为
 		new Thread() {
 			@Override
 			public void run() {
-				// 在这里的for循环，太快很容易看不到结果
 				for (int i = 0; i < 1000; i++) {
 					while (true) {
 						Integer m = money.get();

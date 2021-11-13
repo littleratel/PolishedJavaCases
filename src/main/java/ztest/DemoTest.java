@@ -6,16 +6,14 @@ public class DemoTest {
 
     @Test
     public void testJvmMemortData() {
-        print(null);
-        System.out.println("<======================>");
-        print("123");
+        Object obj = null;
+
+//        if (obj instanceof Object) {
+//            System.out.println("obj is instanceof Object");
+//        }else {
+//            System.out.println("Not");
+//        }
+
     }
 
-    private void print(final String... arr) {
-        if (arr == null) {
-            System.out.println("Input arr is null!");
-        } else {
-            System.out.println("arr.length = " + arr.length);
-        }
-    }
 }

@@ -35,6 +35,7 @@ public class Producer {
 
             // 开启确认模式
             channel.confirmSelect();
+
             // 添加自定义确认
             channel.addConfirmListener(new ConfirmListenerHa());
 

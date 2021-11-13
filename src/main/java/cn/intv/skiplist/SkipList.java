@@ -2,120 +2,117 @@ package cn.intv.skiplist;
 
 import java.util.Random;
 
-/**
- * https://www.cnblogs.com/acfox/p/3688607.html
- *
- * */
-public class SkipList<T extends Comparable<? super T>> {
-    private int maxLevel;
-    private SkipListNode<T>[] root;
-    private int[] powers;
-    private Random rd = new Random();
+public class SkipList {
+    public int level = 1;
+    public SkipListNode top = null;
 
-    SkipList() {
+    public SkipList() {
         this(4);
     }
 
-    SkipList(int i) {
-        maxLevel = i;
-        root = new SkipListNode[maxLevel];
-        powers = new int[maxLevel];
-        for (int j = 0; j < maxLevel; j++)
-            root[j] = null;
-        choosePowers();
+    //跳跃表的初始化
+    public SkipList(int level) {
+        this.level = level;
+        SkipListNode node = null;
+        SkipListNode temp = top;
+        SkipListNode tempDown = null;
+        SkipListNode tempNextDown = null;
+        int tempLevel = level;
+        while (tempLevel-- != 0) {
+            node = createNode(Integer.MIN_VALUE);
+            temp = node;
+            node = createNode(Integer.MAX_VALUE);
+            temp.setNext(node);
+            temp.setDownNext(tempDown);
+            temp.getNext().setDownNext(tempNextDown);
+            tempDown = temp;
+            tempNextDown = temp.getNext();
+        }
+        top = temp;
     }
 
-    public boolean isEmpty() {
-        return root[0] == null;
+    //随机产生数k，k层下的都需要将值插入
+    public int randomLevel() {
+        int k = 1;
+        while (new Random().nextInt() % 2 == 0) {
+            k++;
+        }
+        return k > level ? level : k;
     }
 
-    public void choosePowers() {
-        powers[maxLevel - 1] = (2 << (maxLevel - 1)) - 1;    // 2^maxLevel - 1
-        for (int i = maxLevel - 2, j = 0; i >= 0; i--, j++)
-            powers[i] = powers[i + 1] - (2 << j);           // 2^(j+1)
-    }
-
-    public int chooseLevel() {
-        int i, r = Math.abs(rd.nextInt()) % powers[maxLevel - 1] + 1;
-        for (i = 1; i < maxLevel; i++)
-            if (r < powers[i])
-                return i - 1; // return a level < the highest level;
-        return i - 1;         // return the highest level;
-    }
-
-    // make sure (with isEmpty()) that search() is called for a nonempty list;
-    public T search(T key) {
-        int lvl;
-        SkipListNode<T> prev, curr;            // find the highest nonnull
-        for (lvl = maxLevel - 1; lvl >= 0 && root[lvl] == null; lvl--) ; // level;
-        prev = curr = root[lvl];
+    //查找
+    public SkipListNode find(int value) {
+        SkipListNode node = top;
         while (true) {
-            if (key.equals(curr.key))          // success if equal;
-                return curr.key;
-            else if (key.compareTo(curr.key) < 0) { // if smaller, go down,
-                if (lvl == 0)                 // if possible
-                    return null;
-                else if (curr == root[lvl])   // by one level
-                    curr = root[--lvl];      // starting from the
-                else curr = prev.next[--lvl]; // predecessor which
-            }                                  // can be the root;
-            else {                             // if greater,
-                prev = curr;                  // go to the next
-                if (curr.next[lvl] != null)   // non-null node
-                    curr = curr.next[lvl];   // on the same level
-                else {                        // or to a list on a lower level;
-                    for (lvl--; lvl >= 0 && curr.next[lvl] == null; lvl--) ;
-                    if (lvl >= 0)
-                        curr = curr.next[lvl];
-                    else return null;
-                }
+            while (node.getNext().getValue() < value) {
+                node = node.getNext();
             }
+            if (node.getDownNext() == null) {
+                //返回要查找的节点的前一个节点
+                return node;
+            }
+            node = node.getDownNext();
         }
     }
 
-    public void insert(T key) {
-        SkipListNode<T>[] curr = new SkipListNode[maxLevel];
-        SkipListNode<T>[] prev = new SkipListNode[maxLevel];
-        SkipListNode<T> newNode;
-        int lvl, i;
-        curr[maxLevel - 1] = root[maxLevel - 1];
-        prev[maxLevel - 1] = null;
-        for (lvl = maxLevel - 1; lvl >= 0; lvl--) {
-            while (curr[lvl] != null && curr[lvl].key.compareTo(key) < 0) {
-                prev[lvl] = curr[lvl];           // go to the next
-                curr[lvl] = curr[lvl].next[lvl]; // if smaller;
+    //删除一个节点
+    public boolean delete(int value) {
+        int tempLevel = level;
+        SkipListNode node = top;
+        SkipListNode temp = node;
+        boolean flag = false;
+        while (tempLevel-- != 0) {
+            while (temp.getNext().getValue() < value) {
+                temp = temp.getNext();
             }
-            if (curr[lvl] != null && key.equals(curr[lvl].key)) // don't
-                return;                          // include duplicates;
-            if (lvl > 0)                         // go one level down
-                if (prev[lvl] == null) {         // if not the lowest
-                    curr[lvl - 1] = root[lvl - 1]; // level, using a link
-                    prev[lvl - 1] = null;        // either from the root
-                } else {                           // or from the predecessor;
-                    curr[lvl - 1] = prev[lvl].next[lvl - 1];
-                    prev[lvl - 1] = prev[lvl];
-                }
+            if (temp.getNext().getValue() == value) {
+                temp.setNext(temp.getNext().getNext());
+                flag = true;
+            }
+            temp = node.getDownNext();
         }
-        lvl = chooseLevel();                // generate randomly level
-        newNode = new SkipListNode<T>(key, lvl + 1); // for newNode;
-        for (i = 0; i <= lvl; i++) {        // initialize next fields of
-            newNode.next[i] = curr[i];      // newNode and reset to newNode
-            if (prev[i] == null)            // either fields of the root
-                root[i] = newNode;         // or next fields of newNode's
-            else prev[i].next[i] = newNode; // predecessors;
+        return flag;
+    }
+
+    //插入一个节点
+    public void insert(int value) {
+        SkipListNode node = null;
+        int k = randomLevel();
+        SkipListNode temp = top;
+        int tempLevel = level;
+        SkipListNode tempNode = null;
+        //当在第n行插入后，在第n - 1行插入时需要将第n行backTempNode的DownNext域指向第n - 1的域
+        SkipListNode backTempNode = null;
+        int flag = 1;
+        while (tempLevel-- != k) {
+            temp = temp.getDownNext();
+        }
+
+        tempLevel++;
+        tempNode = temp;
+        //小于k层的都需要进行插入
+        while (tempLevel-- != 0) {
+            //在第k层寻找要插入的位置
+            while (tempNode.getNext().getValue() < value) {
+                tempNode = tempNode.getNext();
+            }
+            node = createNode(value);
+            //如果是顶层
+            if (flag != 1) {
+                backTempNode.setDownNext(node);
+            }
+            backTempNode = node;
+            node.setNext(tempNode.getNext());
+            tempNode.setNext(node);
+            flag = 0;
+            tempNode = tempNode.getDownNext();
         }
     }
 
-
-    // Node
-    public class SkipListNode<T> {
-        T key;
-        SkipListNode<T>[] next;
-        int lvl;
-
-        public SkipListNode(T key, int lvl) {
-            this.key = key;
-            this.lvl = lvl;
-        }
+    //创建一个节点
+    private SkipListNode createNode(int value) {
+        SkipListNode node = new SkipListNode();
+        node.setValue(value);
+        return node;
     }
 }

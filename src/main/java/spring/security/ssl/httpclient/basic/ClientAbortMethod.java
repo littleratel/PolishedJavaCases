@@ -6,9 +6,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
-/**
- * Created by ezuoyin on 3/8/17.
- */
 public class ClientAbortMethod {
     public static void main(String[] args) throws Exception{
         CloseableHttpClient httpclient = HttpClients.createDefault();

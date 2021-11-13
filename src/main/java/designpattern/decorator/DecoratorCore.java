@@ -1,6 +1,6 @@
 package designpattern.decorator;
 
-import exceptions.NonExistantDecoratorException;
+import throwable.exceptions.NonExistantDecoratorException;
 
 class DecoratorCore extends Decorator {
 

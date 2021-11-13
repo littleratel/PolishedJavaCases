@@ -8,7 +8,46 @@ import java.util.regex.Pattern;
 
 public class PatternAndMatcherTest {
 
+    @Test
+    public void testOr() {
+//        StringBuilder sb = new StringBuilder("Active Lane Alarms   : NONE \n --More--Hello");
+        StringBuilder sb = new StringBuilder("Active Lane Alarms   : NONE \n coli>Hello");
+        String currentPromt = "((--More--)|(coli>))";
 
+        Pattern regexPattern = Pattern.compile(currentPromt);
+        Matcher matcher = regexPattern.matcher(sb);
+        if (matcher.find(5)) {
+            System.out.println("Matched: " + matcher.group());
+            System.out.println("Start: " + matcher.start());
+            System.out.println("End :" + matcher.end());
+            sb.delete(matcher.start(), matcher.end());
+            System.out.println(sb.toString());
+        }
+    }
+
+    @Test
+    public void testUsingStringBuilderAsRawString() {
+        String modifiedPrompt = "]]>]]>" + " *$";
+        Pattern regexPattern = Pattern.compile(modifiedPrompt, Pattern.MULTILINE);
+        StringBuilder sb = new StringBuilder();
+        sb.append("</data>\n </rpc-reply>");
+        Matcher matcher = regexPattern.matcher(sb);
+        if (matcher.find(0)) {
+            System.out.println(matcher.groupCount());
+            System.out.println("group:" + matcher.group());
+            System.out.println("start:" + matcher.start());
+            System.out.println("end:" + matcher.end());
+        }
+
+        sb.setLength(0);
+        sb.append("rpcReply>]]>]]>");
+        if (matcher.find(0)) {  // index of "start" is needed
+            System.out.println(matcher.groupCount());
+            System.out.println("group:" + matcher.group());
+            System.out.println("start:" + matcher.start());
+            System.out.println("end:" + matcher.end());
+        }
+    }
 
     @Test
     public void testPattern_split() {
@@ -68,11 +107,13 @@ public class PatternAndMatcherTest {
         if (matcher.find()) {
             System.out.println(matcher.groupCount()); // 2
 
-            System.out.println(matcher.group(1)); //返回第一组匹配到的字符串"Java"，注意起始索引是1
+            System.out.println("group: " + matcher.group());
+
+            System.out.println("group(1): " + matcher.group(1)); //Java, 返回第一组匹配到的字符串"Java"，注意起始索引是1
             System.out.println(matcher.start(1)); // 3，第一组起始索引
             System.out.println(matcher.end(1)); // 7 第一组结束索引
 
-            System.out.println(matcher.group(2)); //返回第二组匹配到的字符串"Python"
+            System.out.println("group(2): " + matcher.group(2)); //Python, 返回第二组匹配到的字符串"Python"
             System.out.println(matcher.start(2)); // 7，第二组起始索引
             System.out.println(matcher.end(2)); // 13 第二组结束索引
         }
