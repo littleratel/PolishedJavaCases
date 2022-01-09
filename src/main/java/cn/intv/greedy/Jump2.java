@@ -1,4 +1,4 @@
-package cn.intv.array;
+package cn.intv.greedy;
 
 import org.junit.Test;
 

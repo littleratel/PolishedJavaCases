@@ -22,11 +22,11 @@ public class CombinationSum2 {
         List<List<Integer>> res = new ArrayList<>();
         Arrays.sort(candidates);
         List<Integer> trace = new ArrayList<>();
-        backtrace(candidates, target, 0, trace, 0, res);
+        backtracking(candidates, target, 0, trace, 0, res);
         return res;
     }
 
-    public void backtrace(int[] candidates, int target, int start, List<Integer> trace, int sum, List<List<Integer>> res) {
+    public void backtracking(int[] candidates, int target, int start, List<Integer> trace, int sum, List<List<Integer>> res) {
         if (sum == target) {
             res.add(new ArrayList<>(trace));
             return;
@@ -40,7 +40,7 @@ public class CombinationSum2 {
 
             if (candidates[i] + sum <= target) {
                 trace.add(candidates[i]);
-                backtrace(candidates, target, i + 1, trace, sum + candidates[i], res);
+                backtracking(candidates, target, i + 1, trace, sum + candidates[i], res);
                 trace.remove(trace.size() - 1);
             } else {
                 // 后面的 candidates[i] 都比当前大，不用试了
