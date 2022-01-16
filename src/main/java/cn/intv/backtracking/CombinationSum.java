@@ -3,12 +3,9 @@ package cn.intv.backtracking;
 import java.util.*;
 
 /**
- * LeetCode 第 39 题:
- * 给定一个 无重复元素 的整数数组 candidates 和一个目标整数 target ，找出 candidates 中可以使数字和为目标数 target 的所有不同组合，并以列表形式返回。
- *
- * 且:
- * 1. candidates 中的同一个数字可以无限制重复使用。
- * 2. 相同数字列表的不同排列视为一个结果
+ * LeetCode 第 39 题:  组合总和
+ * 给定一个 无重复元素 的整数数组 candidates 和一个目标整数 target ，找出 candidates 中可以使数字和为目标数 target 的所有不同组合。
+ * 注意： candidates 中的同一个数字可以无限制重复使用
  */
 public class CombinationSum {
     public static void main(String[] args) {
@@ -36,8 +33,7 @@ public class CombinationSum {
 
     /**
      * 方式一：
-     *
-     * */
+     */
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         List<List<Integer>> res = new ArrayList<>();
         Deque<Integer> path = new ArrayDeque<>();
@@ -74,9 +70,8 @@ public class CombinationSum {
 
     /**
      * 方式二：
-     *
      * 优化剪枝
-     * */
+     */
     public List<List<Integer>> combinationSumOpt(int[] candidates, int target) {
         List<List<Integer>> res = new ArrayList<>();
         Deque<Integer> path = new ArrayDeque<>();

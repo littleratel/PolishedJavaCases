@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * LeetCode 46 全排列:
- * 给定一个不含重复数字的数组 nums ，返回其所有可能的全排列;
+ * 给定一个 不含重复数字 的数组 nums ，返回其所有可能的全排列;
  * <p>
  * Input：nums = [1,2,3]
  * Output：[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
@@ -45,6 +45,7 @@ public class Permute {
             if (visited[i]) {
                 continue;
             }
+
             path.addLast(nums[i]);
             visited[i] = true;
             backtracking(nums, path, visited, res);
@@ -52,5 +53,4 @@ public class Permute {
             visited[i] = false;
         }
     }
-
 }

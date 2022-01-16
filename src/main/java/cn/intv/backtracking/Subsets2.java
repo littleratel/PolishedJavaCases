@@ -1,9 +1,6 @@
 package cn.intv.backtracking;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 /**
  * LeetCode 90. 子集 II
@@ -16,18 +13,30 @@ import java.util.List;
 public class Subsets2 {
     public static void main(String[] args) {
         Subsets2 tool = new Subsets2();
-        System.out.println(tool.subsetsWithDup(new int[]{1, 2, 3}));
+        System.out.println(tool.subsetsWithDup(new int[]{1, 2, 2}));
     }
 
     public List<List<Integer>> subsetsWithDup(int[] nums) {
+        Arrays.sort(nums);
         List<List<Integer>> res = new ArrayList<>();
-        Deque<Integer> path = new ArrayDeque<>();
-        backtrack(nums, 0, path, res);
+        backtrack(nums, 0, new ArrayDeque<>(), res);
         return res;
     }
 
-    private void backtrack(int[] nums, int idx, Deque<Integer> path, List<List<Integer>> res) {
+    // 1 2 2 3
+    private void backtrack(int[] nums, int lev, Deque<Integer> path, List<List<Integer>> res) {
+        res.add(new ArrayList<>(path));
 
+        for (int i = lev; i < nums.length; i++) {
+            // 从每一个子树root开始，在它的处于同一层孩子中，如果值有相等的，则它们是重复，需要剪枝
+            if (i != lev && nums[i] == nums[i - 1]) {
+                // i != idx 非root的节点
+                continue;
+            }
 
+            path.addLast(nums[i]);
+            backtrack(nums, i + 1, path, res);
+            path.removeLast();
+        }
     }
 }
