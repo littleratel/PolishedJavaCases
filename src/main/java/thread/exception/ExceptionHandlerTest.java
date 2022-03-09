@@ -52,7 +52,6 @@ public class ExceptionHandlerTest {
             // 当线程抛出异常时，后续的处理
             // 当然，这也可以放在run()方法的try/catch里做
             System.out.println(t.getName() + " throw the exception: " + e);
-            System.out.println("Need more operations when the thread throw the exception.");
         }
     }
 }

@@ -34,7 +34,8 @@ public class Permutation {
             }
 
             // !visited[i - 1]
-            if (i > 0 && arr[i] == arr[i - 1] && !visited[i - 1]) {
+            // 如果对树层中前一位去重，就用used[i - 1] == false，如果要对树枝前一位去重用used[i - 1] == true
+            if (i > 0 && arr[i] == arr[i - 1] && visited[i - 1]) {
                 continue;
             }
 

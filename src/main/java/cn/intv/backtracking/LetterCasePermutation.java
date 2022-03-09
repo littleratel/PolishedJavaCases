@@ -1,5 +1,6 @@
 package cn.intv.backtracking;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,11 +15,30 @@ import java.util.List;
  */
 public class LetterCasePermutation {
     public static void main(String[] args) {
-
+        LetterCasePermutation tool = new LetterCasePermutation();
+        System.out.println(tool.letterCasePermutation("a1b2"));
     }
 
     public List<String> letterCasePermutation(String s) {
+        char[] arr = s.toCharArray();
+        List<String> res = new ArrayList<>();
 
-        return null;
+        backtrack(arr, 0, res);
+
+        return res;
+    }
+
+    private void backtrack(char[] arr, int idx, List<String> res) {
+        res.add(new String(arr));
+
+        for (int i = idx; i < arr.length; i++) {
+            if (arr[i] < 'A') {
+                continue;
+            }
+
+            arr[i] ^= 32;
+            backtrack(arr, i + 1, res);
+            arr[i] ^= 32;
+        }
     }
 }
