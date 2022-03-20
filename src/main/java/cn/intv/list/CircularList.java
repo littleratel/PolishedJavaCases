@@ -8,6 +8,15 @@ import java.util.HashSet;
 
 /**
  * 判断一链表是否有环; 有则找到交叉点.
+ *
+ * 当快慢指针相遇时，快指针走了n圈，慢指针走了k圈：
+ * a + n(b+c) + b = 2a + 2k(b+c) + 2b
+ * n(b+c) = a + 2k(b+c) + b
+ * a+b = (n-2k)(b+c)
+ *
+ * 结论是：
+ * k = 0
+ * a = (n-1)((b+c)) + c
  */
 public class CircularList {
 
@@ -36,7 +45,7 @@ public class CircularList {
 
     /**
      * 使用 Set， 判断 Node节点的唯一性
-     * */
+     */
     private Node hasCycle(Node root) {
         HashSet<Node> set = new HashSet<>();
         Node tmp = root;
@@ -69,20 +78,23 @@ public class CircularList {
             if (oneStep == twoStep) {
                 // oneStep = twoStep = Node(9), not Node(3)
                 // twoStep 比 oneStep 多走了一个环的node的个数(8), 但不代表只比 oneStep 多转一圈
-                System.out.println("This is a Circular List!");
-                System.out.println("Find the same steps is " + oneStep.val);
-                System.out.println("Count of node on the circular list is " + stepCount);
+                System.out.println("链表有环，快慢指针相遇的点是：" + oneStep.val);
+                System.out.println("它们相遇时并走的步数：" + stepCount);
                 break;
             }
         }
 
         // get the final cross node
         oneStep = node;
-        while (oneStep != twoStep) {
+        for (; ; ) {
+            if (oneStep == twoStep) {
+                break;
+            }
             oneStep = oneStep.next;
             twoStep = twoStep.next;
         }
-        System.out.println("The 1st cross node is " + oneStep.val);
+
+        System.out.println("环的交叉点是：" + oneStep.val);
     }
 
 }

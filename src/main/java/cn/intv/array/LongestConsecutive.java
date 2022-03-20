@@ -22,6 +22,10 @@ public class LongestConsecutive {
         System.out.println(tool.longestConsecutive(new int[]{100, 4, 200, 1, 3, 2}));
     }
 
+    /**
+     * 时间复杂度：O(n), 2n+2 ~ 4n
+     * 空间复杂度：O(n)
+     * */
     private int longestConsecutive(int[] nums) {
         if (nums.length < 2) return nums.length;
 
