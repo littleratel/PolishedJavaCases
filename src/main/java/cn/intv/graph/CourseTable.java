@@ -20,61 +20,64 @@ import java.util.*;
  */
 public class CourseTable {
     public static void main(String[] args) {
-        System.out.println(canFinish(2, new int[][]{{1, 0}}));
-        System.out.println(canFinish(2, new int[][]{{1, 0}, {0, 1}}));
+        System.out.println(canFinishBfs(2, new int[][]{{1, 0}, {0, 1}}));
+        System.out.println(canFinishBfs(2, new int[][]{{1, 0}}));
     }
 
-    public static boolean canFinish(int numCourses, int[][] prerequisites) {
-        Map<Integer, Integer> indegreeMap = new HashMap<>();
-        Map<Integer, List<Integer>> postsMap = new HashMap<>();
+    /**
+     * 入度表（广度优先遍历）
+     */
+    public static boolean canFinishBfs(int numCourses, int[][] prerequisites) {
+        int[] indegrees = new int[numCourses];
+        List<List<Integer>> adjacency = new ArrayList<>();
+        Queue<Integer> queue = new LinkedList<>();
 
-        // 初始化 入度表, 邻接表
-        for (int i = 0; i < numCourses; i++) {
-            indegreeMap.put(i, 0);
-            postsMap.put(i, new LinkedList<>());
+        for (int i = 0; i < numCourses; i++)
+            adjacency.add(new ArrayList<>());
+
+        // Get the indegree and adjacency of every course.
+        for (int[] cp : prerequisites) {
+            indegrees[cp[0]]++;
+            adjacency.get(cp[1]).add(cp[0]);
         }
 
-        for (int[] temp : prerequisites) {
-            int cur = temp[1];
-            int post = temp[0];
+        // Get all the courses with the indegree of 0.
+        for (int i = 0; i < numCourses; i++)
+            if (indegrees[i] == 0) queue.add(i);
 
-            // 统计后继结点入度
-            indegreeMap.put(post, indegreeMap.getOrDefault(post, 0) + 1);
-
-            // 建立 邻接表
-            postsMap.get(cur).add(post);
-
-        }
-
-        Deque<Integer> queue = new LinkedList<>();
-        // 向队列中加入入度为0的结点
-        for (Integer key : indegreeMap.keySet()) {
-            if (indegreeMap.get(key) == 0) {
-                queue.offer(key);
-            }
-        }
-
-        // 出队
+        // BFS TopSort.
         while (!queue.isEmpty()) {
-            Integer cur = queue.poll();
-            List<Integer> posts = postsMap.get(cur);
-
-            for (Integer post : posts) {
-                // 将后继结点入度减1
-                indegreeMap.put(post, indegreeMap.get(post) - 1);
-                // 将减1后入度为0，且存在后继的后继结点加入队列
-                if (indegreeMap.get(post) == 0) {
-                    queue.offer(post);
-                }
-            }
+            int pre = queue.poll();
+            numCourses--;
+            for (int cur : adjacency.get(pre))
+                if (--indegrees[cur] == 0) queue.add(cur);
         }
+        return numCourses == 0;
+    }
 
-        for (Integer key : indegreeMap.keySet()) {
-            if (indegreeMap.get(key) > 0) {
-                return false;
-            }
-        }
+    /**
+     * 深度优先遍历
+     * 原理是通过 DFS 判断图中是否有环。
+     */
+    public static boolean canFinishDfs(int numCourses, int[][] prerequisites) {
+        List<List<Integer>> adjacency = new ArrayList<>();
+        for (int i = 0; i < numCourses; i++)
+            adjacency.add(new ArrayList<>());
+        int[] flags = new int[numCourses];
+        for (int[] cp : prerequisites)
+            adjacency.get(cp[1]).add(cp[0]);
+        for (int i = 0; i < numCourses; i++)
+            if (!dfs(adjacency, flags, i)) return false;
+        return true;
+    }
 
+    private static boolean dfs(List<List<Integer>> adjacency, int[] flags, int i) {
+        if (flags[i] == 1) return false;
+        if (flags[i] == -1) return true;
+        flags[i] = 1;
+        for (Integer j : adjacency.get(i))
+            if (!dfs(adjacency, flags, j)) return false;
+        flags[i] = -1;
         return true;
     }
 }
