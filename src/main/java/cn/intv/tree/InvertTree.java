@@ -1,12 +1,12 @@
 package cn.intv.tree;
 
-import cn.intv.tree.InitTree.TreeNode;
+import util.tree.TreeUtils;
 
 public class InvertTree<E extends Comparable<? super E>> {
 
     public static void main(String[] args) {
         Integer[] arrFalse = {5, 3, 6, 2, 4, null, 8, 1, null, null, null, null, null, 7, 9};
-        TreeNode<Integer> root = InitTree.initTree(arrFalse, 0);
+        TreeNode<Integer> root = TreeUtils.initTree(arrFalse, 0);
         InvertTree<Integer> tool = new InvertTree<>();
         tool.doInvert(root);
     }

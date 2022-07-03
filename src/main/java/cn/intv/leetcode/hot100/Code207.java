@@ -77,24 +77,24 @@ public class Code207 {
      * 入度表（广度优先遍历）
      */
     public boolean canFinishBfs(int numCourses, int[][] prerequisites) {
-        //建立入度表(每门课程的入度)
-        int[] indegree = new int[numCourses];
         //建立邻接表
         List<List<Integer>> adjacency = new ArrayList<>();
         for (int i = 0; i < numCourses; i++) {
             adjacency.add(new ArrayList<>());
         }
 
+        //建立入度表(每门课程的入度)
+        int[] inDegree = new int[numCourses];
         //统计有向图中节点的邻节点
         for (int[] info : prerequisites) {
             adjacency.get(info[1]).add(info[0]);//统计邻节点
-            indegree[info[0]]++;//统计入度
+            inDegree[info[0]]++;//统计入度
         }
 
         // 从入度为0的节点开始，沿着后继节点向后遍历，所以需要将入度为0的节点入队
         Queue<Integer> queue = new LinkedList<>();
         for (int i = 0; i < numCourses; i++) {
-            if (indegree[i] == 0) queue.add(i);
+            if (inDegree[i] == 0) queue.add(i);
         }
 
         //BFS
@@ -105,7 +105,7 @@ public class Code207 {
             numCourses--;
             for (int cur : adjacency.get(pre)) {
                 //如果邻节点(后继节点)入度减一后为0，说明cur所有的前驱节点已经被 “删除”，此时将 cur 入队
-                if (--indegree[cur] == 0) {
+                if (--inDegree[cur] == 0) {
                     queue.add(cur);
                 }
             }

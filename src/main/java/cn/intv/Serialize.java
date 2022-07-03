@@ -51,7 +51,7 @@ public class Serialize {
     private static void test2(List<Map<String, String>> lst) {
         JSON json = (JSON) JSON.toJSON(lst);
         System.out.println(json.toString());
-        String serializeString = JSON.toJSONString(lst, true);
+        String serializeString = JSON.toJSONString(lst);
         System.out.println(serializeString);
     }
 

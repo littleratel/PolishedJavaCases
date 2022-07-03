@@ -7,31 +7,38 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
 
-import cn.intv.tree.InitTree.TreeNode;
+import util.tree.TreeUtils;
 
 public class TreeTraverse<E extends Comparable<? super E>> {
 
     public static void main(String[] args) {
         Integer[] arrFalse = {5, 3, 6, 2, 4, null, 8, 1, null, null, null, null, null, 7, 9};
-        TreeNode<Integer> root = InitTree.initTree(arrFalse, 0);
+        TreeNode<Integer> root = TreeUtils.initTree(arrFalse, 0);
         TreeTraverse<Integer> tree = new TreeTraverse<>();
 
 //        System.out.print("递归前序遍历:");
 //        tree.preOrder(root);
+
 //        System.out.print("\n非递归前序遍历:");
 //        tree.preOrderNonRecursive(root);
-//		  System.out.print("\n递归中序遍历:");
-//		  tree.midOrder(root);
-//		  System.out.print("\n非递归中序遍历:");
-//		  tree.midOrderNonRecursive(root);
+
+		  System.out.print("\n递归 中序遍历:");
+		  tree.midOrder(root);
+
+		  System.out.print("\n非递归中序遍历:");
+		  tree.midOrderNonRecursive(root);
+
 //        System.out.print("\n递归后序遍历 :");
 //        tree.posOrder(root);
+
 //        System.out.print("\n非递归后序遍历:");
 //        tree.posOrderNonRecursive(root);
+
 //        System.out.print("\n 递归层序遍历:");
 //        tree.levelOrder(root);
-        System.out.print("\n非递归层序遍历:");
-        tree.levelOrderNonRecursive(root);
+
+//        System.out.print("\n非递归层序遍历:");
+//        tree.levelOrderNonRecursive(root);
     }
 
     /**
@@ -122,20 +129,18 @@ public class TreeTraverse<E extends Comparable<? super E>> {
     }
 
     // 中序遍历 非递归
-    // 
     public void midOrderNonRecursive(TreeNode<E> root) {
         Stack<TreeNode<E>> stack = new Stack<>();
-        TreeNode tmp = root;
-        while (tmp != null || !stack.empty()) {
-            while (tmp != null) {
-                stack.push(tmp);
-                tmp = tmp.left;
+        while (root != null || !stack.empty()) {
+            // 左孩子依次加入stack
+            while (root != null) {
+                stack.push(root);
+                root = root.left;
             }
-            if (!stack.empty()) {
-                tmp = stack.pop();
-                System.out.print(tmp.value + " ");
-                tmp = tmp.right;
-            }
+
+            root = stack.pop();
+            System.out.print(root.value + " ");
+            root = root.right;
         }
     }
 
