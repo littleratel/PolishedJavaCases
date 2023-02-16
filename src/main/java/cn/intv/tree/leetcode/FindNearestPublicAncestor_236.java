@@ -1,4 +1,4 @@
-package cn.intv.tree.tmp;
+package cn.intv.tree.leetcode;
 
 import cn.intv.tree.TreeNode;
 import util.tree.BinaryTrees;
@@ -7,6 +7,7 @@ import util.tree.TreeUtils;
 
 /**
  * 查找两个节点的最近的一个共同父节点，可以包括节点自身.
+ * 共同父节点一定会存在
  */
 public class FindNearestPublicAncestor_236 extends TreeInfoPrint {
 
@@ -21,7 +22,7 @@ public class FindNearestPublicAncestor_236 extends TreeInfoPrint {
         TreeNode<Integer> q = new TreeNode<>(9);
 
         TreeNode result = tool.lowestCommonAncestor(tool.root, p, q);
-        System.out.println(result.value);
+        System.out.println(result.val);
     }
 
     // 递归查找
@@ -29,7 +30,8 @@ public class FindNearestPublicAncestor_236 extends TreeInfoPrint {
     private TreeNode lowestCommonAncestor(TreeNode<Integer> root, TreeNode<Integer> p, TreeNode<Integer> q) {
         if (root == null) {
             return null;
-        } else if (root.value == p.value || root.value == q.value) {
+        }
+        if (root.val == p.val || root.val == q.val) {
             return root;
         }
 
@@ -41,7 +43,7 @@ public class FindNearestPublicAncestor_236 extends TreeInfoPrint {
             return root;
         }
 
-        //
+        // 如果p和q只有一个存在于root为根的树中，返回该节点
         return left != null ? left : right;
     }
 }

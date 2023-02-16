@@ -34,7 +34,7 @@ public class BST {
                 root = root.left;
             }
             root = stack.pop();
-            if (pre != null && pre.value >= root.value)
+            if (pre != null && pre.val >= root.val)
                 return false;
             pre = root;
             root = root.right;
@@ -51,10 +51,10 @@ public class BST {
                 root = root.left;
             }
             root = stack.pop();
-            if (root.value <= preVal) {
+            if (root.val <= preVal) {
                 return false;
             }
-            preVal = root.value;
+            preVal = root.val;
             root = root.right;
         }
 
@@ -65,19 +65,21 @@ public class BST {
      * 递归实现.
      * 采用自顶向下的遍历，对于每个节点，left < root < right.
      */
-    private static boolean isValidBST2(TreeNode<Integer> root) {
-        return isValidBST(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    private static boolean isValidBST2(TreeNode root) {
+        return isValidBST(root, null, null);
     }
 
-    private static boolean isValidBST(TreeNode<Integer> root, int minVal, int maxVal) {
-        if (root == null) return true;
+    public static boolean isValidBST(TreeNode<Integer> root, TreeNode<Integer> left, TreeNode<Integer> rigtht) {
+        if (root == null) {
+            return true;
+        }
 
-        if (root.value >= maxVal || root.value <= minVal)
-            return false;
+        if (rigtht != null && root.val >= rigtht.val) return false;
+        if (left != null && root.val <= left.val) return false;
 
-        // left < root  &&  root < right
-        return isValidBST(root.left, minVal, root.value) && isValidBST(root.right, root.value, maxVal);
+        return isValidBST(root.left, left, root) && isValidBST(root.right, root, rigtht);
     }
+
 
     /**
      * 恢复二叉搜索时
@@ -89,9 +91,9 @@ public class BST {
 
     public static void recoverTree(TreeNode<Integer> root) {
         inorder(root);
-        int temp = t1.value;
-        t1.value = t2.value;
-        t2.value = temp;
+        int temp = t1.val;
+        t1.val = t2.val;
+        t2.val = temp;
     }
 
     private static void inorder(TreeNode<Integer> root) {
@@ -103,7 +105,7 @@ public class BST {
                 root = root.left;
             }
             root = stack.pop();
-            if (pre != null && pre.value >= root.value) {
+            if (pre != null && pre.val >= root.val) {
                 t1 = pre;
                 t2 = root;
             }

@@ -11,13 +11,27 @@ import java.util.Random;
 public class QueueTest {
 
     public static void main(String[] args) {
+        findKthValue();
 //        testPriorityQueue();
-        testPriorityQueueBaseComparator();
+//        testPriorityQueueBaseComparator();
+    }
+
+    private static void findKthValue() {
+        int k = 3;
+        PriorityQueue<Integer> q = new PriorityQueue<>();
+        q.add(1);
+        q.add(2);
+        q.add(3);
+        q.add(5);
+        q.add(6);
+
+        System.out.println(q);
+        System.out.println(q);
     }
 
     private static void testPriorityQueue() {
         Random rand = new Random(100);
-		PriorityQueue<Integer> q = new PriorityQueue<>();
+        PriorityQueue<Integer> q = new PriorityQueue<>();
         System.out.print("Add: ");
         int randomNum;
         for (int i = 0; i < 10; i++) {
@@ -25,7 +39,7 @@ public class QueueTest {
             System.out.print(randomNum + " ");
             q.add(randomNum);
         }
-		System.out.println();
+        System.out.println();
         while (!q.isEmpty()) {
             System.out.print(q.poll() + " ");
         }

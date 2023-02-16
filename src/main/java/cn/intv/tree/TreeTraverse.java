@@ -46,7 +46,7 @@ public class TreeTraverse<E extends Comparable<? super E>> {
      */
     public void preOrder(TreeNode<E> Node) {
         if (Node != null) {
-            System.out.print(Node.value + " ");
+            System.out.print(Node.val + " ");
             preOrder(Node.left);
             preOrder(Node.right);
         }
@@ -58,7 +58,7 @@ public class TreeTraverse<E extends Comparable<? super E>> {
     public void midOrder(TreeNode<E> Node) {
         if (Node != null) {
             midOrder(Node.left);
-            System.out.print(Node.value + " ");
+            System.out.print(Node.val + " ");
             midOrder(Node.right);
         }
     }
@@ -70,7 +70,7 @@ public class TreeTraverse<E extends Comparable<? super E>> {
         if (Node != null) {
             posOrder(Node.left);
             posOrder(Node.right);
-            System.out.print(Node.value + " ");
+            System.out.print(Node.val + " ");
         }
     }
 
@@ -103,7 +103,7 @@ public class TreeTraverse<E extends Comparable<? super E>> {
             return;
         }
         if (level == 1) {
-            System.out.print(node.value + " ");
+            System.out.print(node.val + " ");
             return;
         }
 
@@ -118,7 +118,7 @@ public class TreeTraverse<E extends Comparable<? super E>> {
         TreeNode tmp;
         while (!stack.empty()) {
             tmp = stack.pop();
-            System.out.print(tmp.value + " "); // root
+            System.out.print(tmp.val + " "); // root
             if (tmp.right != null) {
                 stack.push(tmp.right);
             }
@@ -139,7 +139,7 @@ public class TreeTraverse<E extends Comparable<? super E>> {
             }
 
             root = stack.pop();
-            System.out.print(root.value + " ");
+            System.out.print(root.val + " ");
             root = root.right;
         }
     }
@@ -153,7 +153,7 @@ public class TreeTraverse<E extends Comparable<? super E>> {
         stack.push(root);
         while (!stack.isEmpty()) {
             TreeNode node = stack.pop();
-            result.add((Integer) node.value);
+            result.add((Integer) node.val);
             if (node.left != null) {
                 stack.push(node.left);
             }
@@ -199,7 +199,7 @@ public class TreeTraverse<E extends Comparable<? super E>> {
         TreeNode<E> tmp;
         while (queue.size() != 0) {
             tmp = queue.poll(); // remove()
-            System.out.print(tmp.value + " ");
+            System.out.print(tmp.val + " ");
 
             if (tmp.left != null) {
                 queue.offer(tmp.left); // add()

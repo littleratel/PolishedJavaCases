@@ -25,7 +25,7 @@ public class BinaryTree {
         if (p == null && q == null)
             return true;
 
-        if (p.value != q.value)
+        if (p.val != q.val)
             return false;
 
         return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
@@ -44,7 +44,7 @@ public class BinaryTree {
         if (node1 == null && node2 == null)
             return true;
 
-        if (node1.value != node2.value)
+        if (node1.val != node2.val)
             return false;
 
         return check(node1.left, node2.right) && check(node1.right, node2.left);

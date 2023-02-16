@@ -8,6 +8,7 @@ public class DeserializeTest {
 	public static void main(String[] args) {
 		try {
 			ObjectInputStream in = new ObjectInputStream(new FileInputStream("UserInfo.out"));
+			Object obj = in.readObject();
 			UserInfo userRx = (UserInfo) in.readObject();
 			System.out.println(userRx.toString());
 			in.close();

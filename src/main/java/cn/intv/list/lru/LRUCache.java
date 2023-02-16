@@ -6,15 +6,15 @@ import java.util.Map;
 class LRUCache {
     public static void main(String[] args) {
         LRUCache lRUCache = new LRUCache(2);
-        System.out.println(lRUCache.get(2));
+        System.out.println(lRUCache.get(2)); // -1
 
-        lRUCache.put(2, 6);
-        System.out.println(lRUCache.get(1));
-
-        lRUCache.put(1, 5);
-        lRUCache.put(1, 2);
-        System.out.println(lRUCache.get(1));
-        System.out.println(lRUCache.get(2));
+        lRUCache.put(1, 111);
+        lRUCache.put(2, 222);
+        lRUCache.put(2, 22);
+        System.out.println(lRUCache.get(2)); // 22
+        lRUCache.put(3, 333);
+        System.out.println(lRUCache.get(1)); // -1
+        System.out.println(lRUCache.get(2)); // 22
         System.out.println(lRUCache.toString());
     }
 
@@ -30,102 +30,92 @@ class LRUCache {
 
     public int get(int k) {
         Node n = map.get(k);
-        if (n == null) {
+        if(n == null){
             return -1;
         }
 
         afterNodeAccess(n);
 
-        return (int) n.value;
+        return (int)n.value;
     }
 
     public void put(int k, int v) {
         Node n = map.get(k);
-        // key is already exist?
-        if (n != null) {
+        if(n != null){
             n.value = v;
             afterNodeAccess(n);
             return;
         }
 
-        // cach is full?
-        if (map.size() == this.cap) {
-            this.remove((int) head.key);
+        if(this.cap == map.size()){
+            // 缓存已满，删除head节点
+            remove((int)head.key);
         }
-
-        //
         n = new Node(k, v);
         map.put(k, n);
-        if (head == null) {
+
+        if(this.head == null){
             this.head = n;
             this.tail = n;
-        } else {
-            // add to tail
-            this.tail.after = n;
-            n.before = this.tail;
-            this.tail = n;
+            return;
         }
+
+        n.pre = this.tail;
+        this.tail.next = n;
+        this.tail = n;
     }
 
     private void remove(int k) {
-        Node p = map.remove(k);
-        if (p == null) {
+        Node n = map.remove(k);
+        if(n == null){
             return;
         }
 
-        if (p == head) {
-            if (p == tail) {
-                head = null;
-                tail = null;
-                return;
-            }
-
-            head = p.after;
-            head.before = null;
-            return;
+        Node pre = n.pre, next = n.next;
+        if(pre == null){
+            this.head = next;
+        } else {
+            pre.next = next;
         }
 
-        Node b = p.before, a = p.after;
-        b.after = a;
-        a.before = b;
+        if(next == null){
+            this.tail = pre;
+        } else {
+            next.pre = pre;
+        }
     }
 
     private void afterNodeAccess(Node p) {
-        Node last = this.tail;
-        if (last == p) {
+        if(this.tail == p){
             return;
         }
 
-        Node b = p.before, a = p.after;
-        p.after = null;
-
-        // Point to a
-        if (b == null)
-            head = a;
-        else
-            b.after = a;
-
-        // Point to b
-        if (a != null)
-            a.before = b;
-        else
-            last = b;
-
-        // Point to p
-        if (last == null)
-            head = p;
-        else {
-            p.before = last;
-            last.after = p;
+        // p.next != null
+        Node pre = p.pre, next = p.next;
+        if(pre != null){
+            pre.next = next;
+        } else {
+            this.head = next;
         }
 
-        tail = p;
+        if(next != null){
+            next.pre = pre;
+        }else {
+            this.tail = pre;
+        }
+
+        // 将 p 设置成 tail
+        p.pre = this.tail;
+        this.tail.next = p;
+        p.next = null;
+
+        this.tail = p;
     }
 
     class Node<K, V> {
         K key;
         V value;
-        Node<K, V> before, after;
+        Node<K, V> pre, next;
 
         Node(K key, V value) {
             this.key = key;
@@ -139,7 +129,7 @@ class LRUCache {
         StringBuilder sb = new StringBuilder();
         while (n != null) {
             sb.append(n.key).append(":").append(n.value).append(", ");
-            n = n.after;
+            n = n.next;
         }
 
         return sb.toString();

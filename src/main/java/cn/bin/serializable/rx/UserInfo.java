@@ -8,7 +8,7 @@ public class UserInfo implements Serializable {
 	private String name;
 	private transient String psw;
 
-	public UserInfo(String name, String psw) {
+	public UserInfo(String name, String psw){
 		this.name = name;
 		this.psw = psw;
 	}

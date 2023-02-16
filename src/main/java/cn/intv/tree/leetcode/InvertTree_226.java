@@ -1,4 +1,4 @@
-package cn.intv.tree.tmp;
+package cn.intv.tree.leetcode;
 
 import cn.intv.tree.TreeNode;
 import util.tree.BinaryTrees;

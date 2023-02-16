@@ -64,7 +64,7 @@ public class TreeSerialize extends TreeInfoPrint {
         }
 
         /****** 前序遍历位置 ******/
-        sb.append(root.value).append(SEP);
+        sb.append(root.val).append(SEP);
         /***********************/
 
         doSerializePre(root.left, sb);
@@ -81,7 +81,7 @@ public class TreeSerialize extends TreeInfoPrint {
         doSerializePost(root.right, sb);
 
         /****** 后序遍历位置 ******/
-        sb.append(root.value).append(SEP);
+        sb.append(root.val).append(SEP);
         /***********************/
     }
 
@@ -101,7 +101,7 @@ public class TreeSerialize extends TreeInfoPrint {
                 sb.append(NULL).append(SEP);
                 continue;
             }
-            sb.append(cur.value).append(SEP);
+            sb.append(cur.val).append(SEP);
 
             queue.offer(cur.left);
             queue.offer(cur.right);

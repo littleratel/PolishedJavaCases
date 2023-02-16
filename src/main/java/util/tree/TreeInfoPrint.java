@@ -22,7 +22,7 @@ public abstract class TreeInfoPrint implements BinaryTreeInfo {
 
     @Override
     public Object string(Object node) {
-        return ((TreeNode) node).value;
+        return ((TreeNode) node).val;
     }
 
     public void printTree() {

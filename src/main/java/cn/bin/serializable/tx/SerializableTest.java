@@ -6,7 +6,10 @@ import java.io.ObjectOutputStream;
 public class SerializableTest {
 
 	public static void main(String[] args) {
-		UserInfo user = new UserInfo("dog", "123456");
+		UserInfo user = new UserInfo();
+		user.setName("dog");
+		user.setPsw("piip");
+
 		System.out.println(user);
 		try {
 			// 序列化，被设置为transient的属性没有被序列化
