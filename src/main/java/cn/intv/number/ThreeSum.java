@@ -2,6 +2,7 @@ package cn.intv.number;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ public class ThreeSum {
     }
 
     /**
-     *
+     * 双指针法
      */
     public static List<List<Integer>> threeSum(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
@@ -29,7 +30,7 @@ public class ThreeSum {
 
         int sum, l, r;
         for (int i = 0, len = nums.length - 3; i <= len; i++) {
-            // 提前返回
+            // 提前返回，nums[]是排序后的，若nums[i]>0, i之后的数据都>0
             if (nums[i] > 0) return res;
             // 过滤重复
             if (i > 0 && nums[i] == nums[i - 1]) continue;

@@ -13,7 +13,7 @@ public class BracketsMatching {
                 "{{" // false
         };
 
-        Arrays.stream(brackets).forEach(str -> System.out.println(isMatch3(str)));
+        Arrays.stream(brackets).forEach(str -> System.out.println(isMatch2(str)));
     }
 
     // 循环次数为字符串长度的一半, 每次都将{}删除
@@ -43,7 +43,7 @@ public class BracketsMatching {
 
         int count = 0;
         for (; stack.size() > 0; ) {
-            count = (stack.pop().charValue() == '}') ? count++ : count--;
+            count = (stack.pop().charValue() == '}') ? ++count : --count;
             if (count < 0) {
                 return false;
             }

@@ -8,31 +8,30 @@ import cn.intv.list.utils.ListUtil.Node;
  */
 public class SortByNonAbsoluteValue {
 
-	public static void main(String[] args) {
-		int[] arr = { -1, -2, -3, 4, 5, 6, 7, -8, -9, -10, -11, -12 };
-		Node head = ListUtil.init(arr);
+    public static void main(String[] args) {
+        int[] arr = {-1, -2, -3, 4, 5, 6, 7, -8, -9, -10, -11, -12};
+        Node head = ListUtil.init(arr);
 
-		Node tmp = doSerch(head);
-		do {
-			System.out.print(tmp.val + " ");
-			tmp = tmp.next;
-		} while (tmp != null);
-	}
+        Node node = doSearch(head);
+        ListUtil.print(node);
+    }
 
-	public static Node doSerch(Node node) {
-		Node head = node;
-		Node next = null;
-		while (node != null) {
-			next = node.next;
-			if (next != null && next.val < node.val) {
-				node.next = next.next;
-				next.next = head;
-				head = next;
-				continue;
-			}
-			node = node.next;
-		}
+    public static Node doSearch(Node node) {
+        Node head = node, next;
+        while (node != null) {
+            next = node.next;
 
-		return head;
-	}
+            // 如果next小于前一个节点，直接放到队头
+            if (next != null && next.val < node.val) {
+                node.next = next.next;
+                next.next = head;
+                head = next;
+                continue;
+            }
+
+            node = node.next;
+        }
+
+        return head;
+    }
 }

@@ -6,17 +6,17 @@ package cn.intv.quick24;
  */
 public class Quick24C {
     public static void main(String[] args) {
-        System.out.println(simpleEvaluation(new int[]{-1, 3, 4, 2}));
-        System.out.println(simpleEvaluation(new int[]{1, 3, 4, 2}));
-        System.out.println(simpleEvaluation(new int[]{1, 1, 1, 24}));
-        System.out.println(simpleEvaluation(new int[]{1, 1, 1, 23}));
-        System.out.println(simpleEvaluation(new int[]{1, 2, 3, 9}));
-        System.out.println(simpleEvaluation(new int[]{8, 8, 8, 10}));
-        System.out.println(simpleEvaluation(new int[]{5, 5, 1, 5})); // false
-        System.out.println(simpleEvaluation(new int[]{13, 2, 3, 9}));
+        System.out.println(doCalculate(new int[]{-1, 3, 4, 2}));
+        System.out.println(doCalculate(new int[]{1, 3, 4, 2}));
+        System.out.println(doCalculate(new int[]{1, 1, 1, 24}));
+        System.out.println(doCalculate(new int[]{1, 1, 1, 23}));
+        System.out.println(doCalculate(new int[]{1, 2, 3, 9}));
+        System.out.println(doCalculate(new int[]{8, 8, 8, 10}));
+        System.out.println(doCalculate(new int[]{5, 5, 1, 5}));
+        System.out.println(doCalculate(new int[]{13, 2, 3, 9}));
     }
 
-    static boolean simpleEvaluation(int[] nums) {
+    private static boolean doCalculate(int[] nums) {
         boolean[] visit = new boolean[nums.length];
         return dfs(24, nums, visit);
     }
@@ -39,7 +39,6 @@ public class Quick24C {
             return false;
         }
 
-        // can be calculated
         if (len == 2) {
             if (target == a + b || target == a * b || target == a - b || target == b - a) {
                 return true;
@@ -52,16 +51,13 @@ public class Quick24C {
             return false;
         }
 
-        // 剩余元素超过2个，继续dfs
         for (int i = 0; i < nums.length; i++) {
             if (visit[i]) {
                 continue;
             }
 
             // 剪枝操作，比如处理重复的数字
-
             visit[i] = true;
-
             if (dfs(target + nums[i], nums, visit)
                     || dfs(target * nums[i], nums, visit)
                     || dfs(target - nums[i], nums, visit)

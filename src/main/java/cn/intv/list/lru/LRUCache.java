@@ -51,6 +51,8 @@ class LRUCache {
             // 缓存已满，删除head节点
             remove((int)head.key);
         }
+
+        // 添加新节点
         n = new Node(k, v);
         map.put(k, n);
 

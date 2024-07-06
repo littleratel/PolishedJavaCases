@@ -44,5 +44,4 @@ public class Flatten_114 extends TreeInfoPrint {
         // 将原右子树挂在目前的右子树的最末端
         tmp.right = right;
     }
-
 }

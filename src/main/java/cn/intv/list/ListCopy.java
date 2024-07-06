@@ -1,7 +1,9 @@
 package cn.intv.list;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 实现将一个链表复制：
@@ -27,37 +29,21 @@ public class ListCopy {
 
     // 处理无论链表是否带环
     private static Node listCopyBaseOnMap(final Node node) {
-        Node tmp = node, crossNode = node;
+        Node tmp = node;
         Map<Node, Node> copyNodes = new HashMap<>();
-        boolean isCircular = false;
-        for (; ; ) {
-            if (tmp == null) {
-                break;
-            } else if (null != copyNodes.putIfAbsent(tmp, tmp.cpy())) {
-                isCircular = true;
-                crossNode = tmp;
-                break;
-            }
+
+        // 复制
+        while (tmp != null && null == copyNodes.putIfAbsent(tmp, tmp.cpy())) {
             tmp = tmp.next;
         }
 
+        // 赋值next和random
         copyNodes.forEach((nd, cpyNd) -> {
             cpyNd.next = copyNodes.get(nd.next);
-            cpyNd.random = (nd.random == null) ? null : copyNodes.get(nd.random);
+            cpyNd.random = copyNodes.get(nd.random);
         });
 
-        if (!isCircular) {
-            return copyNodes.get(node);
-        }
-
-        tmp = node;
-        for (; ; ) {
-            if (tmp.next == crossNode) {
-                copyNodes.get(tmp).next = copyNodes.get(crossNode);
-                return copyNodes.get(node);
-            }
-            tmp = tmp.next;
-        }
+        return copyNodes.get(node);
     }
 
     // 处理不带环的链表
@@ -99,7 +85,7 @@ public class ListCopy {
         node5.next = node6;
 
         // create circular list
-        node6.next = node2;
+        node6.next = node3;
 
         node1.random = node5;
         node2.random = node6;
@@ -113,24 +99,27 @@ public class ListCopy {
 
     private static void print(final Node node) {
         Node tmp = node;
-        int count = 0, max = 7;
 
-        System.out.print("val: ");
-        while (count < max) {
-            System.out.print(tmp.val + " ");
-            tmp = tmp.next;
-            count++;
-        }
-        System.out.println();
+        Set<Node> set = new HashSet<>();
+        StringBuilder sb1 = new StringBuilder("val: ");
+        StringBuilder sb2 = new StringBuilder("random-val: ");
+        for (; ; ) {
+            if (tmp == null) {
+                break;
+            }
 
-        System.out.print("rand-val: ");
-        tmp = node;
-        while (count>=0) {
-            System.out.print(tmp.random == null ? "null " : tmp.random.val + " ");
+            sb1.append(tmp.val).append(" ");
+            sb2.append(tmp.random == null ? "null" : tmp.random.val).append(" ");
+
+            if (!set.add(tmp)) {
+                break;
+            }
+
             tmp = tmp.next;
-            count--;
         }
-        System.out.println();
+
+        System.out.println(sb1);
+        System.out.println(sb2);
     }
 
     private static class Node {

@@ -18,12 +18,12 @@ public class InsertPlusOrMinusBetween1To9MakeResult100 {
     /**
      * numSeq的前(1~n)位计算结果为N组合
      */
-    public static List<String> doCalculate(String numSeq, int n, int N) {
+    public static List<String> doCalculate(String numSeq, int end, int N) {
         List<String> ans = new ArrayList<>();
-        for (int i = 0, lastPart; i < n; i++) {
-            lastPart = Integer.parseInt(numSeq.substring(i, n));
+        for (int i = 0, lastPart; i < end; i++) {
+            lastPart = Integer.parseInt(numSeq.substring(i, end));
             if (i == 0 && lastPart == N) {
-                ans.add(numSeq.substring(i,n));
+                ans.add(numSeq.substring(i, end));
                 continue;
             }
 
