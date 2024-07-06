@@ -7,11 +7,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class MainTest {
-    private static final TransmittableThreadLocal<String> threadLocal = new TransmittableThreadLocal<>();
-    private static ExecutorService executorService = TtlExecutors.getTtlExecutorService(Executors.newFixedThreadPool(2));
+    private static final TransmittableThreadLocal<String> ttl = new TransmittableThreadLocal<>();
+    private static ExecutorService executorService = TtlExecutors.getTtlExecutorService(Executors.newFixedThreadPool(1));
 
     public static void main(String[] args) {
-        threadLocal.set("main-->");
+        ttl.set("main-->");
         executorService.submit(MainTest::queryShop);
         executorService.submit(MainTest::queryItem);
         executorService.submit(MainTest::queryCoupon);
@@ -21,7 +21,7 @@ public class MainTest {
      * 查询店铺信息
      */
     private static void queryShop() {
-        threadLocal.set(threadLocal.get() + "queryShop");
+        ttl.set(ttl.get() + "queryShop");
         record();
     }
 
@@ -29,7 +29,7 @@ public class MainTest {
      * 查询商品
      */
     private static void queryItem() {
-        threadLocal.set(threadLocal.get() + "queryItem");
+        ttl.set(ttl.get() + "queryItem");
         record();
     }
 
@@ -37,7 +37,7 @@ public class MainTest {
      * 查询优惠券
      */
     private static void queryCoupon() {
-        threadLocal.set(threadLocal.get() + "queryCoupon");
+        ttl.set(ttl.get() + "queryCoupon");
         record();
     }
 
@@ -45,7 +45,7 @@ public class MainTest {
      * 记录日志
      */
     private static void record() {
-        threadLocal.set(threadLocal.get() + "-->record");
-        System.out.println(Thread.currentThread().getName() + " method call chain[ " + threadLocal.get() + " ]");
+        ttl.set(ttl.get() + "-->" + Thread.currentThread().getName());
+        System.out.println(Thread.currentThread().getName() + " method call chain[ " + ttl.get() + " ]");
     }
 }

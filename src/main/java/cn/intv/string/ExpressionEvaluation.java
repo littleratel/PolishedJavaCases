@@ -4,18 +4,18 @@ import java.util.Stack;
 
 /**
  * 请写一个整数计算器，支持加减乘三种运算和括号。
- *
+ * <p>
  * 数据范围：，保证计算结果始终在整型范围内
- *
+ * <p>
  * "((1+3*2+7-9)-8)*2*2" ==> -12
  * "(2*(3-4))*5" ==> -10
- * */
+ */
 public class ExpressionEvaluation {
 
     public static void main(String[] args) {
         System.out.println(solve("(2*(3-4))*5")); // -10
         System.out.println(solve("((1+3*2+7-9)-8)*2*2")); // -12
-        System.out.println(solve("-11+13")); // 2
+        System.out.println(solve("-1113")); // 2
     }
 
     public static int solve(String s) {
@@ -75,7 +75,6 @@ public class ExpressionEvaluation {
     }
 
     private static int doSvc(String s) {
-
         return 0;
     }
 }

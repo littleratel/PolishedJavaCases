@@ -39,7 +39,7 @@ public class TreeSerialize extends TreeInfoPrint {
 //        tool.root = tool.deserialize(treeStr);
 
         // 反序列化：中序遍历
-        tool.root = tool.deserializeLevelTraversal(treeStr);
+        tool.root = tool.deserializeLevelTraversal1(treeStr);
         BinaryTrees.println(tool);
     }
 
@@ -140,6 +140,39 @@ public class TreeSerialize extends TreeInfoPrint {
 
         return root;
     }
+
+    private TreeNode<Integer> deserializeLevelTraversal1(String rootSre) {
+        String[] nodes = rootSre.split(SEP);
+        Queue<TreeNode<Integer>> queue = new LinkedList<>();
+        TreeNode<Integer> root = new TreeNode<>(Integer.valueOf(nodes[0]));
+        queue.add(root);
+
+        String leftStr, rightStr;
+        TreeNode<Integer> cur;
+        int idx =1;
+        while (!queue.isEmpty()){
+            cur = queue.poll();
+
+            leftStr = nodes[idx++];
+            if (NULL.equals(leftStr)) {
+                cur.left = null;
+            } else {
+                cur.left = new TreeNode<>(Integer.valueOf(leftStr));
+                queue.add(cur.left);
+            }
+
+            rightStr = nodes[idx++];
+            if (NULL.equals(rightStr)) {
+                cur.right = null;
+            } else {
+                cur.right = new TreeNode<>(Integer.valueOf(rightStr));
+                queue.add(cur.right);
+            }
+        }
+
+        return root;
+    }
+
 
     /**
      * 反序列化

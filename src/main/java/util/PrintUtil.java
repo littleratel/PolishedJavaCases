@@ -2,6 +2,12 @@ package util;
 
 public class PrintUtil {
 
+    public static void print(Object[] nums) {
+        for (Object item : nums) {
+            System.out.print(item + " ");
+        }
+        System.out.println();
+    }
 
     public static void twoDimensionalArray(int[][] people) {
         int len = people.length;

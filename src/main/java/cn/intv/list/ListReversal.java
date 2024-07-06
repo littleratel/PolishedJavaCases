@@ -18,11 +18,11 @@ public class ListReversal {
 		node3.next = node4;
 		node2.next = node3;
 		node1.next = node2;
-		
-		oneWayListRreversal(node1);
+
+		oneWayListReversal(node1);
 	}
 
-	private static void oneWayListRreversal(Node node){
+	private static void oneWayListReversal(Node node){
 		
 		
 		

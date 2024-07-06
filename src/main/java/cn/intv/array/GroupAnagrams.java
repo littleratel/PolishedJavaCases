@@ -14,10 +14,31 @@ import java.util.*;
 public class GroupAnagrams {
 
     public static void main(String[] args) {
-
+        String[] strs = {"eat", "tea", "tan", "ate", "nat", "bat"};
+        List<List<String>> res = groupAnagrams1(strs);
+        System.out.println(res);
     }
 
-    public List<List<String>> groupAnagrams(String[] strs) {
+    // eat -> aet -> Map<aet, [eat]>
+    public static List<List<String>> groupAnagrams1(String[] strs) {
+        Map<String, List<String>> map = new HashMap<>();
+        for (String str : strs) {
+            char[] ch = str.toCharArray();
+            Arrays.sort(ch);
+            String key = new String(ch);
+            List<String> lst = map.getOrDefault(key, new ArrayList<>());
+            lst.add(str);
+            map.put(key, lst);
+        }
+
+        List<List<String>> res = new ArrayList<>();
+        res.addAll(map.values());
+
+        return res;
+    }
+
+
+    public static List<List<String>> groupAnagrams(String[] strs) {
         Map<BigInteger, List<String>> res = new HashMap<>();
         Map<Character, BigInteger> map = getMap();
         BigInteger pro;
@@ -46,7 +67,7 @@ public class GroupAnagrams {
     /**
      *
      */
-    private Map getMap() {
+    private static Map getMap() {
         Map<Character, BigInteger> res = new HashMap();
         String[] arr = {"2", "3", "5", "7", "11", "13", "17", "19", "23", "29", "31", "37", "41", "43",
                 "47", "53", "59", "61", "67", "71", "73", "79", "83", "89", "97", "101"};

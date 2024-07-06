@@ -37,6 +37,7 @@ public class LongestConsecutive {
         int maxLen = 1, curLen, left, right;
         for (int num : nums) {
             if (!set.remove(num)) {
+                // 如果set中不包含num，说明之前已经remove过了, 说明num在原数组中是重复的元素
                 continue;
             }
 

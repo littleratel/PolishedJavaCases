@@ -1,5 +1,7 @@
 package juc.aqs;
 
+import lombok.SneakyThrows;
+
 import java.util.concurrent.Semaphore;
 
 public class SemaphoreTest {
@@ -22,16 +24,20 @@ public class SemaphoreTest {
 			this.semaphore = semaphore;
 		}
 
+		@SneakyThrows
 		@Override
 		public void run() {
+
+			semaphore.acquire();
+
 			try {
-				semaphore.acquire();
 				System.out.println("工人" + this.num + "占用一个机器在生产...");
 				Thread.sleep(1000);
 				System.out.println("工人" + this.num + "释放出机器");
-				semaphore.release();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
+			} finally {
+				semaphore.release();
 			}
 		}
 	}

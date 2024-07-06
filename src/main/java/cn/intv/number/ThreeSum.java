@@ -37,7 +37,6 @@ public class ThreeSum {
             l = i + 1;
             r = nums.length - 1;
 
-            OK:
             while (l < r) {
                 sum = nums[i] + nums[l] + nums[r];
                 if (sum == 0) {

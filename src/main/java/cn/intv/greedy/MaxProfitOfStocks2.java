@@ -27,8 +27,8 @@ public class MaxProfitOfStocks2 {
         System.out.println(maxProfit(new int[]{1, 3, 2, 8, 4, 9}, 2));
         System.out.println(maxProfit(new int[]{1, 3, 7, 5, 10, 3}, 3));
 
-//        System.out.println(maxProfit_Greedy(new int[]{1, 3, 2, 8, 4, 9}, 2)); //
-//        System.out.println(maxProfit_Greedy(new int[]{1, 3, 7, 5, 10, 3}, 3)); //
+        System.out.println(maxProfit_Greedy(new int[]{1, 3, 2, 8, 4, 9}, 2)); //
+        System.out.println(maxProfit_Greedy(new int[]{1, 3, 7, 5, 10, 3}, 3)); //
     }
 
     private static int maxProfit(int[] prices, int fee) {
@@ -62,9 +62,9 @@ public class MaxProfitOfStocks2 {
         int sum = 0;
         for (int p : prices) {
             if (p + fee < buy) {
-                buy = p + fee;
+                buy = p + fee; // can buy
             } else if (p > buy) {
-                sum += p - buy;
+                sum += p - buy; // can be sold
                 buy = p;
             }
         }

@@ -33,15 +33,15 @@ public class Test {
     }
 
     private static void TestJdkProxy2() {
-        Target targetProxy = new TargetImpl();
+        Target target = new TargetImpl();
 
 //        CheckHandler checkHandler = new CheckHandler(target);
 //        Target targetProxy = (Target) checkHandler.getObjectProxy();
 //        System.out.println("=====> " + targetProxy.getClass().getName());
 
         // 加了第二层嵌套
-        LogHandler logHandler = new LogHandler(targetProxy);
-        targetProxy = (Target) logHandler.getObjectProxy();
+        LogHandler logHandler = new LogHandler(target);
+        Target targetProxy = (Target) logHandler.getObjectProxy();
         System.out.println("=====> " + targetProxy.getClass().getName());
 
         targetProxy.query("Hello, TestJdkProxy2");

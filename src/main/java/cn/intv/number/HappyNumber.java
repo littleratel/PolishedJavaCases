@@ -14,7 +14,7 @@ public class HappyNumber {
     }
 
     public boolean isHappy(int cnt) {
-        HashSet set = new HashSet();
+        HashSet<Integer> set = new HashSet<>();
         set.add(cnt);
         while (true) {
             cnt = sumOfSquares(cnt);

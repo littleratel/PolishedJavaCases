@@ -23,27 +23,25 @@ public class MaxProduct {
 
     /**
      * 正反方向判断，计算最大值
-     *
      */
     public static int maxProduct(int[] nums) {
         if (nums == null || nums.length == 0) {
             return 0;
         }
 
-        int len = nums.length;
-        int max1 = nums[0], max2 = nums[len - 1];
-        int res = Math.max(max1, max2);
+        int max = nums[0], min = nums[0];
+        int result = max;
 
-        for (int i = 1; i < nums.length; ++i) {
-            max1 = max1 == 0 ? 1 : max1;
-            max1 = max1 * nums[i];
-            res = Math.max(max1, res);
+        for (int i = 1; i < nums.length; i++) {
+            int curMax = nums[i] * max;
+            int curMin = nums[i] * min;
 
-            max2 = max2 == 0 ? 1 : max2;
-            max2 = max2 * nums[len - i - 1];
-            res = Math.max(max2, res);
+            max = Math.max(Math.max(nums[i], curMax), curMin);
+            min = Math.min(Math.min(nums[i], curMax), curMin);
+
+            result = Math.max(result, max);
         }
 
-        return res;
+        return result;
     }
 }

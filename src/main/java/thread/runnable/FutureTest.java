@@ -16,42 +16,45 @@ public class FutureTest {
 
     ExecutorService executor = Executors.newSingleThreadExecutor();
 
-    /**
-     *
-     *
-     * */
+
     @Test
     public void testFutureTest() {
         Future<?> future = executor.submit(() -> {
-            try {
-                System.out.println("Current Thread: " + Thread.currentThread().getName());
-                Thread.currentThread().interrupt();
-                System.out.println("isInterrupted: " + Thread.currentThread().isInterrupted());
-                sleep(5000); // 5s
-                System.out.println("End Run().");
-            } catch (InterruptedException e) {
-                System.out.println("catch isInterrupted: " + Thread.currentThread().isInterrupted());
-                e.printStackTrace();
-            } finally {
-//                Thread.currentThread().interrupt();
-//                Thread.interrupted(); //
-                System.out.println("finally isInterrupted: " + Thread.currentThread().isInterrupted());
+            System.out.println("Current Thread: " + Thread.currentThread().getName());
+
+            for (int i = 0; i < 100; i++) {
+                try {
+                    sleep(1_000);
+                    System.out.println("isInterrupted: " + Thread.currentThread().isInterrupted());
+                } catch (InterruptedException e) {
+                    System.out.println("catch isInterrupted: " + Thread.currentThread().isInterrupted());
+                    e.printStackTrace();
+                } finally {
+                    System.out.println("finally isInterrupted: " + Thread.currentThread().isInterrupted());
+                }
             }
         });
 
+        //
+        long start = System.currentTimeMillis();
+
+        boolean res = future.isCancelled();
+        System.out.println("0: " + res);
+
+        res = future.cancel(true);
+        System.out.println("1: " + res);
         try {
-            long start = System.currentTimeMillis();
-            future.get(3, TimeUnit.SECONDS);
-            long end = System.currentTimeMillis();
-            System.out.println("End future.get, use time: " + (end - start));
+            for (int i = 0; i < 20; i++) {
+                res = future.isCancelled();
+                System.out.println("-----> " + res);
+                sleep(500);
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (TimeoutException e) {
-//            future.cancel(true);
-            System.out.println("After call future.cancel");
-            e.printStackTrace();
         }
+
+        long end = System.currentTimeMillis();
+        System.out.println("End future.get, use time: " + (end - start));
+
     }
 }

@@ -15,20 +15,25 @@ public class InsertPlusOrMinusBetween1To9MakeResult100 {
         System.out.println("Total : " + resultList.size());
     }
 
+    /**
+     * numSeq的前(1~n)位计算结果为N组合
+     */
     public static List<String> doCalculate(String numSeq, int n, int N) {
         List<String> ans = new ArrayList<>();
         for (int i = 0, lastPart; i < n; i++) {
             lastPart = Integer.parseInt(numSeq.substring(i, n));
             if (i == 0 && lastPart == N) {
-                ans.add(numSeq.substring(i));
+                ans.add(numSeq.substring(i,n));
                 continue;
             }
 
+            // numSeq的(1~i)位 - lastPart = N
             List<String> plusR = doCalculate(numSeq, i, N + lastPart);
             for (String s : plusR) {
                 ans.add(s + "-" + lastPart);
             }
 
+            // numSeq的(1~i)位 + lastPart = N
             List<String> minusR = doCalculate(numSeq, i, N - lastPart);
             for (String s : minusR) {
                 ans.add(s + "+" + lastPart);

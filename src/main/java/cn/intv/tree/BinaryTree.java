@@ -64,10 +64,10 @@ public class BinaryTree {
 
         return doBuild(0, 0, preorder.length - 1);
     }
-
+    // 使用前序遍历数组 构造
     private TreeNode<Integer> doBuild(int rootIndex, int left, int right) {
         if (left > right) return null;
-        TreeNode<Integer> root = new TreeNode<Integer>(arr[rootIndex]);
+        TreeNode<Integer> root = new TreeNode<>(arr[rootIndex]); // preorder[rootIndex]
         int index = map.get(arr[rootIndex]);
         root.left = doBuild(rootIndex + 1, left, index - 1);
         root.right = doBuild(rootIndex + index - left + 1, index + 1, right);

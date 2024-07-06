@@ -1,40 +1,15 @@
 package cn.intv.bloomfilter;
 
 public class AMainTest {
+    public static void main(String[] args) {
+        String[] urls = {"url1", "url2", "url3", "url5", "url7", "url3"};
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-//		BloomFilter<Integer> bf = new BloomFilter<>(1_00_0000, 0.01);
-//		for (int i = 1; i <= 1_00_0000; i++) {
-//			bf.put(i);
-//		}
-//
-//		int count = 0;
-//		for (int i = 1_00_0001; i <= 2_00_0000; i++) {
-//			if (bf.contains(i)) {
-//				count++;
-//			}
-//		}
-//		System.out.println(count);
+        BloomFilter<String> bf = new BloomFilter<>(1_00_0000, 0.01);
 
-		// 数组
-		String[] urls = {};
-		BloomFilter<String> bf = new BloomFilter<>(10_0000_0000, 0.01);
-		/*
-		for (String url : urls) {
-			if (bf.contains(url)) continue;
-			// 爬这个url
-			// ......
-
-			// 放进BloomFilter中
-			bf.put(url);
-		}*/
-
-		for (String url : urls) {
-			if (bf.put(url) == false) continue;
-			// 爬这个url
-			// ......
-		}
-	}
-
+        for (String url : urls) {
+            if (!bf.put(url)) {
+                System.out.println("URL is duplicated:" + url);
+            }
+        }
+    }
 }

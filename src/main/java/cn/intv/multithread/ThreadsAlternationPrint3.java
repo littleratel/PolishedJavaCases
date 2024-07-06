@@ -7,14 +7,11 @@ public class ThreadsAlternationPrint3 {
 
     public static void main(String[] args) {
 
-        Thread t1 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (num < 30) {
-                    if (flag == 1) {
-                        System.out.println(Thread.currentThread().getName() + " : " + num++);
-                        flag = 2;
-                    }
+        Thread t1 = new Thread(() -> {
+            while (num < 30) {
+                if (flag == 1) {
+                    System.out.println(Thread.currentThread().getName() + " : " + num++);
+                    flag = 2;
                 }
             }
         });

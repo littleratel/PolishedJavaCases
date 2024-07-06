@@ -26,6 +26,7 @@ public class BracketsMatching {
         len /= 2;
         for (int i = 0; i < len; i++) {
             str = str.replace("{}", "");
+            if (str.length() == 0) return true;
         }
 
         return str.length() == 0;
@@ -35,7 +36,7 @@ public class BracketsMatching {
     private static Boolean isMatch2(String str) {
         System.out.println("str is :" + str);
         int len = str.length();
-        Stack<Character> stack = new Stack<Character>();
+        Stack<Character> stack = new Stack<>();
         for (int i = 0; i < len; i++) {
             stack.push(str.charAt(i));
         }
@@ -48,7 +49,7 @@ public class BracketsMatching {
             }
         }
 
-        return (count == 0) ? true : false;
+        return count == 0;
     }
 
     //

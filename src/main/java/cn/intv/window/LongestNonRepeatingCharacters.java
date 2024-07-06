@@ -14,8 +14,8 @@ import java.util.Set;
  * */
 public class LongestNonRepeatingCharacters {
     public static void main(String[] args) {
-        System.out.println(doSvc3("abcabcbb"));
-        System.out.println(doSvc3("pwwkew"));
+        System.out.println(doSvc("abcpabcbb"));
+        System.out.println(doSvc("pwwkew"));
     }
 
     private static int doSvc(String s) {
