@@ -21,9 +21,6 @@ public class MaxProduct {
         System.out.println(maxProduct(new int[]{-1, -2, -3, 0})); // 6
     }
 
-    /**
-     * 正反方向判断，计算最大值
-     */
     public static int maxProduct(int[] nums) {
         if (nums == null || nums.length == 0) {
             return 0;

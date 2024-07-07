@@ -7,7 +7,7 @@ import java.sql.SQLFeatureNotSupportedException;
 import java.util.Properties;
 import java.util.logging.Logger;
 
-public class MyDriver implements java.sql.Driver {
+public class MySqlDriver implements java.sql.Driver {
 
     @Override
     public Connection connect(String url, Properties info) throws SQLException {

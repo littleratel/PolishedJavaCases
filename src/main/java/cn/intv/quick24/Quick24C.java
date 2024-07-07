@@ -21,7 +21,7 @@ public class Quick24C {
         return dfs(24, nums, visit);
     }
 
-    static boolean dfs(int target, int[] nums, boolean[] visit) {
+    private static boolean dfs(int target, int[] nums, boolean[] visit) {
         // 计算未被访问到元素
         int len = visit.length;
         Integer a = null, b = null;
@@ -35,15 +35,21 @@ public class Quick24C {
             }
         }
 
-        if (len < 2) {
+        if (len <= 1) {
             return false;
         }
 
         if (len == 2) {
+            // 两数相加、减、乘
             if (target == a + b || target == a * b || target == a - b || target == b - a) {
                 return true;
             }
 
+            if ((a * b < 0 && target >= 0) || (a * b >= 0 && target < 0)) {
+                return false;
+            }
+
+            // 两数相除
             if ((b != 0 && a % b == 0 && a / b == target) || (a != 0 && b % a == 0 && b / a == target)) {
                 return true;
             }

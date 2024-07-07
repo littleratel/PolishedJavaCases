@@ -56,4 +56,47 @@ public class ThreeSum {
 
         return res;
     }
+
+    /**
+     * 3层循环方案
+     */
+    private static List<List<Integer>> threeSumLoop(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        Arrays.sort(nums);
+
+        int target = 0;
+
+        for (int i = 0, len = nums.length - 3; i <= len; i++) {
+            // 剪枝
+            if (nums[i] > target) return res;
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+
+            for (int j = i + 1; j <= nums.length - 2; j++) {
+                // 剪枝
+                if (j > i + 1 && nums[j] == nums[j - 1]) {
+                    continue;
+                }
+                int curTarget = target - nums[i] - nums[j];
+                if (nums[j] > curTarget) break;
+
+                for (int k = j + 1; k < nums.length; k++) {
+                    // 剪枝
+                    if (nums[k] > curTarget) break;
+                    if (k > j + 1 && nums[k] == nums[k - 1]) continue;
+
+                    if (curTarget == nums[k]) {
+                        List<Integer> path = new ArrayList<>();
+                        path.add(nums[i]);
+                        path.add(nums[j]);
+                        path.add(nums[k]);
+                        res.add(path);
+                    }
+                }
+            }
+        }
+
+        return res;
+    }
 }
