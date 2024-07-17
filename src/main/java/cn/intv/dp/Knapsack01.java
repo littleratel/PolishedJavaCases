@@ -30,6 +30,7 @@ public class Knapsack01 {
 
         Knapsack01 tool = new Knapsack01();
         tool.twoDpArray(weight, price, pkgTotalWeight);
+        System.out.println("<------------------>");
         tool.oneDpArray(weight, price, pkgTotalWeight);
     }
 
@@ -41,7 +42,7 @@ public class Knapsack01 {
             dp[0][j] = price[0];
         }
 
-        for (int i = 1; i < weight.length; i++) {
+        for (int i = 1; i < weight.length; i++) { // 遍历物品
             for (int j = 0; j <= pkgTotalWeight; j++) {
                 if (j < weight[i])  // 无法放下当前物品weight[i]
                     dp[i][j] = dp[i - 1][j];

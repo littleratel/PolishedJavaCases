@@ -3,15 +3,22 @@ package cn.intv.dp;
 import org.junit.Test;
 
 /**
- *
- *
- * */
+ * 字符串的最长公共子序列
+ * <p>
+ * 示例：
+ * text1 = "ABCD";
+ * text2 = "ACDF";
+ * 最长公共子序列是 “ACD”
+ * <p>
+ * dp[i][j]表示s1的前i个字符与s2的前j个字符的最长公共子序列的长度.
+ */
 public class LongestCommonSubsequence {
 
     @Test
     public void main() {
-
-
+        String text1 = "ABCD";
+        String text2 = "ACDF";
+        System.out.println(longestCommonSubsequence(text1, text2));
     }
 
     public int longestCommonSubsequence(String text1, String text2) {
@@ -33,5 +40,4 @@ public class LongestCommonSubsequence {
 
         return dp[m][n];
     }
-
 }

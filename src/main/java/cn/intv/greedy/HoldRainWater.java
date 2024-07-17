@@ -1,8 +1,13 @@
+
 package cn.intv.greedy;
 
-import java.util.Stack;
-
-// 给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水
+/**
+ * leetcode 42. 接雨水
+ * 给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水
+ * <p>
+ * 输入：height = [0,1,0,2,1,0,1,3,2,1,2,1]
+ * 输出：6
+ */
 public class HoldRainWater {
     public static void main(String[] args) {
         int[] h = {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
@@ -47,7 +52,7 @@ public class HoldRainWater {
         return res;
     }
 
-    //
+    // 动态规划
     private static int trap_dp(int[] height) {
         int res = 0, mx = 0, n = height.length;
         int[] dp = new int[n];
